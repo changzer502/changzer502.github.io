@@ -16,16 +16,16 @@
   <meta name="author" content="长泽">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 TransactionMana">
+    <meta name="description" content="1、从TM开始TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 Transact">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习写一个MYDB——（1）从TM开始">
 <meta property="og:url" content="https://changzer.gitee.io/2022/09/09/MYDB_TM/index.html">
 <meta property="og:site_name" content="长泽の日常">
-<meta property="og:description" content="TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 TransactionMana">
+<meta property="og:description" content="1、从TM开始TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 Transact">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://images.changzer.cn/wallhaven-6oqzgq.jpg">
 <meta property="article:published_time" content="2022-09-09T05:39:00.000Z">
-<meta property="article:modified_time" content="2022-09-09T05:48:52.204Z">
+<meta property="article:modified_time" content="2022-09-09T05:53:54.007Z">
 <meta property="article:author" content="长泽">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="MYDB">
@@ -313,7 +313,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2 分钟前
+                    本文最后更新于：12 分钟前
                   
                 
               </p>
@@ -321,7 +321,7 @@
             
               <div class="markdown-body">
                 
-                <p><strong>TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。</strong></p>
+                <h1 id="1、从TM开始"><a href="#1、从TM开始" class="headerlink" title="1、从TM开始"></a>1、从TM开始</h1><p><strong>TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。</strong></p>
 <h2 id="XID文件"><a href="#XID文件" class="headerlink" title="XID文件"></a>XID文件</h2><p>  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。</p>
 <p>事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。</p>
 <p>TransactionManager 维护了一个 XID 格式的文件，用来记录各个事务的状态。MYDB 中，每个事务都有下面的三种状态：</p>
