@@ -19,18 +19,26 @@
     <meta name="description" content="学习java虚拟机——（1）内存结构1. 程序计数器1.1定义Program Counter Register 程序计数器（寄存器） 1.2作用记住下一条jvm指令的执行地址     1.3 特点 是线程私有的 不会存在内存溢出   2. 虚拟机栈2.1 定义每个线程运行时所需要的内存，称为虚拟机栈  每个线程运行时所需要的内存，称为虚拟机栈 每个栈由多个栈帧（Frame）组成，对应着每次方法调用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习java虚拟机——（1）内存结构">
-<meta property="og:url" content="https://changzer.gitee.io/2022/09/08/%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:url" content="https://changzer.gitee.io/2022/09/08/%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA%E2%80%94%E2%80%941%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="长泽の日常">
 <meta property="og:description" content="学习java虚拟机——（1）内存结构1. 程序计数器1.1定义Program Counter Register 程序计数器（寄存器） 1.2作用记住下一条jvm指令的执行地址     1.3 特点 是线程私有的 不会存在内存溢出   2. 虚拟机栈2.1 定义每个线程运行时所需要的内存，称为虚拟机栈  每个线程运行时所需要的内存，称为虚拟机栈 每个栈由多个栈帧（Frame）组成，对应着每次方法调用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://images.changzer.cn/Java JVM.png">
+<meta property="og:image" content="http://images.changzer.cn/image_1.7ba7c63b.png">
+<meta property="og:image" content="http://images.changzer.cn/image_2.bf70bc52.png">
+<meta property="og:image" content="http://images.changzer.cn/image_1.23f6946a.png">
+<meta property="og:image" content="http://images.changzer.cn/image_2.c173bcf4.png">
+<meta property="og:image" content="http://images.changzer.cn/image_1.dd8e7f68.png">
+<meta property="og:image" content="http://images.changzer.cn/image_2.ff1d470a.png">
+<meta property="og:image" content="http://images.changzer.cn/image_1.a92e0dd5.png">
+<meta property="og:image" content="http://images.changzer.cn/image_1.54c7464b.png">
+<meta property="og:image" content="http://images.changzer.cn/image_2.f9cad261.png">
 <meta property="article:published_time" content="2022-09-08T08:18:00.000Z">
-<meta property="article:modified_time" content="2022-09-13T02:37:26.149Z">
+<meta property="article:modified_time" content="2022-10-04T11:45:16.418Z">
 <meta property="article:author" content="长泽">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://images.changzer.cn/Java JVM.png">
+<meta name="twitter:image" content="http://images.changzer.cn/image_1.7ba7c63b.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -313,7 +321,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：21 天前
+                    本文最后更新于：4 分钟前
                   
                 
               </p>
@@ -576,7 +584,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>学习java虚拟机——（1）内存结构</div>
-      <div>https://changzer.gitee.io/2022/09/08/内存结构/</div>
+      <div>https://changzer.gitee.io/2022/09/08/学习java虚拟机——1内存结构/</div>
     </div>
     <div class="license-meta">
       
@@ -618,7 +626,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/09/MYDB_TM/" title="学习写一个MYDB——（1）从TM开始">
+                      <a href="/2022/09/09/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/" title="学习写一个MYDB——（1）从TM开始">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">学习写一个MYDB——（1）从TM开始</span>
                         <span class="visible-mobile">上一篇</span>
