@@ -16,24 +16,27 @@
   <meta name="author" content="长泽">
   <meta name="keywords" content="">
   
-    <meta name="description" content="字符描述： \：将下一个字符标记为特殊字符或字面值。例如 “n “与字符 “n “匹配。 “\n “与换行符匹配。序列 “\ “与 “\ “匹配， “( “与 “( “匹配。">
+    <meta name="description" content="java.lang.NoClassDefFoundError: javax&#x2F;xml&#x2F;bind&#x2F;DatatypeConverter错误出现原因以及解决方式今天在使用JDK 17 环境下使用jjwt时候出现了这个错误，错误日志如下：  故障原因：  JAXB API是java EE 的API，因此在java SE 9.0 中不再包含这个 Jar 包。java 9 中引入了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="正则表达式">
-<meta property="og:url" content="https://changzer.gitee.io/2021/08/17/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:title" content="java.lang.NoClassDefFoundError：javax&#x2F;xml&#x2F;bind&#x2F;DatatypeConverter错误出现原因以及解决方式">
+<meta property="og:url" content="https://changzer.gitee.io/2022/10/05/BUG%E4%BF%AE%E5%A4%8D%E2%80%94%E2%80%94java.lang.NoClassDefFoundError%20javaxxmlbindDatatypeConverter%E9%94%99%E8%AF%AF%E5%87%BA%E7%8E%B0%E5%8E%9F%E5%9B%A0%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/index.html">
 <meta property="og:site_name" content="长泽の日常">
-<meta property="og:description" content="字符描述： \：将下一个字符标记为特殊字符或字面值。例如 “n “与字符 “n “匹配。 “\n “与换行符匹配。序列 “\ “与 “\ “匹配， “( “与 “( “匹配。">
+<meta property="og:description" content="java.lang.NoClassDefFoundError: javax&#x2F;xml&#x2F;bind&#x2F;DatatypeConverter错误出现原因以及解决方式今天在使用JDK 17 环境下使用jjwt时候出现了这个错误，错误日志如下：  故障原因：  JAXB API是java EE 的API，因此在java SE 9.0 中不再包含这个 Jar 包。java 9 中引入了">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-08-17T01:59:36.000Z">
-<meta property="article:modified_time" content="2022-10-04T11:13:09.207Z">
+<meta property="og:image" content="http://images.changzer.cn/image-20221005193551610.png">
+<meta property="article:published_time" content="2022-10-05T11:39:00.000Z">
+<meta property="article:modified_time" content="2022-10-05T11:45:05.822Z">
 <meta property="article:author" content="长泽">
-<meta property="article:tag" content="pattern">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="error">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://images.changzer.cn/image-20221005193551610.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>正则表达式 - 长泽の日常</title>
+  <title>java.lang.NoClassDefFoundError：javax/xml/bind/DatatypeConverter错误出现原因以及解决方式 - 长泽の日常</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -219,13 +222,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('http://images.changzer.cn/Pray_51166367.png') no-repeat center center; background-size: cover;">
+     style="background: url('http://images.changzer.cn/wallhaven-6oqzgq.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="正则表达式"></span>
+            <span id="subtitle" data-typed-text="java.lang.NoClassDefFoundError：javax/xml/bind/DatatypeConverter错误出现原因以及解决方式"></span>
           
         </div>
 
@@ -236,8 +239,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-08-17 09:59" pubdate>
-          2021年8月17日 上午
+        <time datetime="2022-10-05 19:39" pubdate>
+          2022年10月5日 晚上
         </time>
       </span>
     
@@ -248,7 +251,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          990 字
         
       </span>
     
@@ -259,7 +262,7 @@
         
         
         
-          13 分钟
+          9 分钟
         
       </span>
     
@@ -305,12 +308,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">正则表达式</h1>
+            <h1 style="display: none">java.lang.NoClassDefFoundError：javax/xml/bind/DatatypeConverter错误出现原因以及解决方式</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：1 天前
+                    本文最后更新于：31 分钟前
                   
                 
               </p>
@@ -318,74 +321,15 @@
             
               <div class="markdown-body">
                 
-                <h1 id="字符描述："><a href="#字符描述：" class="headerlink" title="字符描述："></a>字符描述：</h1><ul>
-<li><p>\：将下一个字符标记为特殊字符或字面值。例如 “n “与字符 “n “匹配。 “\n “与换行符匹配。序列 “\ “与 “\ “匹配， “( “与 “( “匹配。</p>
-<span id="more"></span>
-</li>
-<li><p>^ ：匹配输入的开始位置。</p>
-</li>
-<li><p>$ ：匹配输入的结尾。</p>
-</li>
-<li><p>* ：匹配前一个字符零次或几次。例如， “zo* “可以匹配 “z “、 “zoo “。</p>
-</li>
-<li><p>+ ：匹配前一个字符一次或多次。例如， “zo+ “可以匹配 “zoo “,但不匹配 “z “。</p>
-</li>
-<li><p>? ：匹配前一个字符零次或一次。例如， “a?ve? “可以匹配 “never “中的 “ve “。</p>
-</li>
-<li><p>.：匹配换行符以外的任何字符。</p>
-</li>
-<li><p>(pattern) 与模式匹配并记住匹配。匹配的子字符串可以从作为结果的 Matches 集合中使用 Item [0]…[n]取得。如果要匹配括号字符(和 )，可使用 “( “ 或 “) “。</p>
-</li>
-<li><p>x|y：匹配 x 或 y。例如 “z|food “ 可匹配 “z “ 或 “food “。 “(z|f)ood “ 匹配 “zoo “ 或 “food “。</p>
-</li>
-<li><p>{n}：n 为非负的整数。匹配恰好n次。例如， “o{2} “ 不能与 “Bob 中的 “o “ 匹配，但是可以与 “foooood “中的前两个o匹配。</p>
-</li>
-<li><p>{n,} ：n 为非负的整数。匹配至少n次。例如， “o{2,} “不匹配 “Bob “中的 “o “，但是匹配 “foooood “中所有的o。 “o{1,} “等价于 “o+ “。 “o{0,} “等价于 “o* “。</p>
-</li>
-<li><p>{n,m} ：m 和 n 为非负的整数。匹配至少 n 次，至多 m 次。例如， “o{1,3} “ 匹配 “fooooood “中前三个o。 “o{0,1} “等价于 “o? “。</p>
-</li>
-<li><p>[xyz] ：一个字符集。与括号中字符的其中之一匹配。例如， “[abc] “ 匹配 “plain “中的 “a “。</p>
-</li>
-<li><p>[^xyz] ：一个否定的字符集。匹配不在此括号中的任何字符。例如， “[^abc] “ 可以匹配 “plain “中的 “p “.</p>
-</li>
-<li><p>[a-z] ：表示某个范围内的字符。与指定区间内的任何字符匹配。例如， “[a-z] “匹配 “a “与 “z “之间的任何一个小写字母字符。</p>
-</li>
-<li><p>[^m-z] ：否定的字符区间。与不在指定区间内的字符匹配。例如， “[m-z] “与不在 “m “到 “z “之间的任何字符匹配。</p>
-</li>
-<li><p>\b ：与单词的边界匹配，即单词与空格之间的位置。例如， “er\b “ 与 “never “中的 “er “匹配，但是不匹配 “verb “中的 “er “。</p>
-</li>
-<li><p>\B ：与非单词边界匹配。 “ea*r\B “与 “never early “中的 “ear “匹配。</p>
-</li>
-<li><p>\d ：与一个数字字符匹配。等价于[0-9]。</p>
-</li>
-<li><p>\D ：与非数字的字符匹配。等价于【^0-9】。</p>
-</li>
-<li><p>\f ：与分页符匹配。</p>
-</li>
-<li><p>\n ：与换行符字符匹配。</p>
-</li>
-<li><p>\r ：与回车字符匹配。</p>
-</li>
-<li><p>\s ：与任何白字符匹配，包括空格、制表符、分页符等。等价于 “[ \f\n\r\t\v] “。</p>
-</li>
-<li><p>\S ：与任何非空白的字符匹配。等价于 “【^ \f\n\r\t\v】 “。</p>
-</li>
-<li><p>\t ：与制表符匹配。</p>
-</li>
-<li><p>\v ：与垂直制表符匹配。</p>
-</li>
-<li><p>\w ：与任何单词字符匹配，包括下划线。等价于 “[A-Za-z0-9_] “。</p>
-</li>
-<li><p>\W ：与任何非单词字符匹配。等价于 ”【^A-Za-z0-9_】 “。</p>
-</li>
-<li><p>\num ：匹配 num个，其中 num 为一个正整数。引用回到记住的匹配。例如， “(.)\1 “匹配两个连续的相同的字符。</p>
-</li>
-<li><p>\n：匹配 n，其中n 是一个八进制换码值。八进制换码值必须是 1, 2 或 3 个数字长。<br>例如， “\11 “ 和 “\011 “ 都与一个制表符匹配。 “\0011 “等价于 “\001 “ 与 “1 “。八进制换码值不得超过 256。否则，只有前两个字符被视为表达式的一部分。允许在正则表达式中使用ASCII码。</p>
-</li>
-<li><p>\xn：匹配n，其中n是一个十六进制的换码值。十六进制换码值必须恰好为两个数字长。例如， “\x41 “匹配 “A “。 “\x041 “等价于 “\x04 “ 和 “1 “。允许在正则表达式中使用 ASCII 码。</p>
-</li>
-</ul>
-
+                <h1 id="java-lang-NoClassDefFoundError-javax-x2F-xml-x2F-bind-x2F-DatatypeConverter错误出现原因以及解决方式"><a href="#java-lang-NoClassDefFoundError-javax-x2F-xml-x2F-bind-x2F-DatatypeConverter错误出现原因以及解决方式" class="headerlink" title="java.lang.NoClassDefFoundError: javax&#x2F;xml&#x2F;bind&#x2F;DatatypeConverter错误出现原因以及解决方式"></a>java.lang.NoClassDefFoundError: javax&#x2F;xml&#x2F;bind&#x2F;DatatypeConverter错误出现原因以及解决方式</h1><p>今天在使用JDK 17 环境下使用jjwt时候出现了这个错误，错误日志如下：</p>
+<p><img src="http://images.changzer.cn/image-20221005193551610.png" srcset="/img/loading.gif" lazyload alt="image-20221005193551610"></p>
+<p>故障原因：</p>
+<blockquote>
+<p><em>JAXB API是java EE 的API，因此在java SE 9.0 中不再包含这个 Jar 包。</em><br><em>java 9 中引入了模块的概念，默认情况下，Java SE中将不再包含java EE 的Jar包</em><br><em>而在 java 6&#x2F;7 &#x2F; 8 时关于这个API 都是捆绑在一起的</em></p>
+</blockquote>
+<h4 id="解决方案一："><a href="#解决方案一：" class="headerlink" title="解决方案一："></a>解决方案一：</h4><p>降低JDK 版本到 JDK 8</p>
+<h4 id="解决方案二-（亲测可行）"><a href="#解决方案二-（亲测可行）" class="headerlink" title="解决方案二:（亲测可行）"></a>解决方案二:（亲测可行）</h4><p>手动加入这些依赖Jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.xml.bind<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxb-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.sun.xml.bind<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxb-impl<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.sun.xml.bind<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxb-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.activation<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>activation<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.1.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -393,11 +337,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/BUG%E4%BF%AE%E5%A4%8D/" class="category-chain-item">BUG修复</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/pattern/">#pattern</a>
+        <a href="/tags/java/">#java</a>
+      
+        <a href="/tags/error/">#error</a>
       
     </div>
   
@@ -409,8 +376,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>正则表达式</div>
-      <div>https://changzer.gitee.io/2021/08/17/正则表达式/</div>
+      <div>java.lang.NoClassDefFoundError：javax/xml/bind/DatatypeConverter错误出现原因以及解决方式</div>
+      <div>https://changzer.gitee.io/2022/10/05/BUG修复——java.lang.NoClassDefFoundError javaxxmlbindDatatypeConverter错误出现原因以及解决方式/</div>
     </div>
     <div class="license-meta">
       
@@ -422,7 +389,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年8月17日</div>
+          <div>2022年10月5日</div>
         </div>
       
       
@@ -452,18 +419,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/19/BUG%E4%BF%AE%E5%A4%8D%E2%80%94%E2%80%94SpringMVC%E6%8E%A5%E6%94%B6%E9%A1%B5%E9%9D%A2%E8%A1%A8%E5%8D%95%E5%8F%82%E6%95%B0/" title="SpringMVC接收页面表单参数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SpringMVC接收页面表单参数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94Servlet/" title="Servlet">
-                        <span class="hidden-mobile">Servlet</span>
+                      <a href="/2022/09/28/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/" title="学习写一个MYDB——（1）从TM开始">
+                        <span class="hidden-mobile">学习写一个MYDB——（1）从TM开始</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

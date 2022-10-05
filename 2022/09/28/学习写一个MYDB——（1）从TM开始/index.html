@@ -19,13 +19,13 @@
     <meta name="description" content="1、从TM开始TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 Transact">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习写一个MYDB——（1）从TM开始">
-<meta property="og:url" content="https://changzer.gitee.io/2022/09/09/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/index.html">
+<meta property="og:url" content="https://changzer.gitee.io/2022/09/28/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/index.html">
 <meta property="og:site_name" content="长泽の日常">
 <meta property="og:description" content="1、从TM开始TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 Transact">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://images.changzer.cn/image_1.8eee7392.png">
-<meta property="article:published_time" content="2022-09-09T05:39:00.000Z">
-<meta property="article:modified_time" content="2022-10-04T11:48:44.618Z">
+<meta property="article:published_time" content="2022-09-28T05:39:00.000Z">
+<meta property="article:modified_time" content="2022-10-05T11:46:26.851Z">
 <meta property="article:author" content="长泽">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="MYDB">
@@ -239,8 +239,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-09 13:39" pubdate>
-          2022年9月9日 下午
+        <time datetime="2022-09-28 13:39" pubdate>
+          2022年9月28日 下午
         </time>
       </span>
     
@@ -313,7 +313,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：1 天前
+                    本文最后更新于：30 分钟前
                   
                 
               </p>
@@ -423,7 +423,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>学习写一个MYDB——（1）从TM开始</div>
-      <div>https://changzer.gitee.io/2022/09/09/学习写一个MYDB——（1）从TM开始/</div>
+      <div>https://changzer.gitee.io/2022/09/28/学习写一个MYDB——（1）从TM开始/</div>
     </div>
     <div class="license-meta">
       
@@ -435,7 +435,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月9日</div>
+          <div>2022年9月28日</div>
         </div>
       
       
@@ -465,9 +465,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/14/%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA%E2%80%94%E2%80%942%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" title="学习java虚拟机——（2）垃圾回收">
+                      <a href="/2022/10/05/BUG%E4%BF%AE%E5%A4%8D%E2%80%94%E2%80%94java.lang.NoClassDefFoundError%20javaxxmlbindDatatypeConverter%E9%94%99%E8%AF%AF%E5%87%BA%E7%8E%B0%E5%8E%9F%E5%9B%A0%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" title="java.lang.NoClassDefFoundError：javax/xml/bind/DatatypeConverter错误出现原因以及解决方式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">学习java虚拟机——（2）垃圾回收</span>
+                        <span class="hidden-mobile">java.lang.NoClassDefFoundError：javax/xml/bind/DatatypeConverter错误出现原因以及解决方式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -475,8 +475,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/08/%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA%E2%80%94%E2%80%941%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/" title="学习java虚拟机——（1）内存结构">
-                        <span class="hidden-mobile">学习java虚拟机——（1）内存结构</span>
+                      <a href="/2022/09/27/%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA%E2%80%94%E2%80%944%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="学习java虚拟机——（4）内存模型">
+                        <span class="hidden-mobile">学习java虚拟机——（4）内存模型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
