@@ -1,0 +1,1318 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#c7cbd1">
+  <meta name="author" content="长泽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 进程的概念、组成、特征1.1 进程的概念程序：是静态得到，就是存放在磁盘里的可执行文件，就是一系列的指令集合 进程：是动态的，是程序（同一个程序执行会对应多个进程）的一次执行过程 1.2 进程的组成——PCB当进程被创建时，操作系统会为该进程分配一个唯一的、不重复的“身份证号”——PID  操作系统需要对各个并发运行的进程进行管理，但凡管理时所需要的信息，都会被放在PCB中   PCB信息：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统——（2）进程与线程">
+<meta property="og:url" content="https://changzer.gitee.io/2022/10/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name" content="长泽の日常">
+<meta property="og:description" content="1 进程的概念、组成、特征1.1 进程的概念程序：是静态得到，就是存放在磁盘里的可执行文件，就是一系列的指令集合 进程：是动态的，是程序（同一个程序执行会对应多个进程）的一次执行过程 1.2 进程的组成——PCB当进程被创建时，操作系统会为该进程分配一个唯一的、不重复的“身份证号”——PID  操作系统需要对各个并发运行的进程进行管理，但凡管理时所需要的信息，都会被放在PCB中   PCB信息：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://images.changzer.cn/Java JVM.png">
+<meta property="article:published_time" content="2022-10-09T05:51:00.000Z">
+<meta property="article:modified_time" content="2022-10-13T09:25:27.378Z">
+<meta property="article:author" content="长泽">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://images.changzer.cn/Java JVM.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>操作系统——（2）进程与线程 - 长泽の日常</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"changzer.gitee.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>长泽の日常</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('http://images.changzer.cn/Java JVM.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="操作系统——（2）进程与线程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-09 13:51" pubdate>
+          2022年10月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          117 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">操作系统——（2）进程与线程</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：几秒前
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-进程的概念、组成、特征"><a href="#1-进程的概念、组成、特征" class="headerlink" title="1 进程的概念、组成、特征"></a>1 进程的概念、组成、特征</h2><h3 id="1-1-进程的概念"><a href="#1-1-进程的概念" class="headerlink" title="1.1 进程的概念"></a>1.1 进程的概念</h3><p>程序：是静态得到，就是存放在磁盘里的可执行文件，就是一系列的指令集合</p>
+<p>进程：是动态的，是程序（同一个程序执行会对应多个进程）的一次执行过程</p>
+<h3 id="1-2-进程的组成——PCB"><a href="#1-2-进程的组成——PCB" class="headerlink" title="1.2 进程的组成——PCB"></a>1.2 进程的组成——PCB</h3><p>当进程被创建时，操作系统会为该进程分配一个唯一的、不重复的“身份证号”——PID</p>
+<p><img src="http://images.changzer.cn/image-20221010143548514.png" srcset="/img/loading.gif" lazyload alt="image-20221010143548514"></p>
+<p>操作系统需要对各个并发运行的进程进行管理，但凡管理时所需要的信息，都会被放在PCB中</p>
+<p><img src="http://images.changzer.cn/image-20221010143613205.png" srcset="/img/loading.gif" lazyload alt="image-20221010143613205"></p>
+<blockquote>
+<p>PCB信息：</p>
+<p>进程标识符</p>
+<p>处理机状态</p>
+<p>进程调度信息</p>
+<p>进程控制信息</p>
+<p>PCB的组织方式：</p>
+<p>线性方式</p>
+<p>链接方式</p>
+<p>索引方式</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221010143708399.png" srcset="/img/loading.gif" lazyload alt="image-20221010143708399"></p>
+<blockquote>
+<p>PCB是给操作系统用的；程序段、数据段是给进程自已用的</p>
+<p>与进程自身的运行逻辑有关</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221010143746801.png" srcset="/img/loading.gif" lazyload alt="image-20221010143746801"></p>
+<p>一个<strong>进程实体</strong>（进程映像）由PCB、程序段、数据段组成。进程是动态的，进程实体（进程映像）是静态的</p>
+<p>进程实体反应了进程在某一时刻的状态</p>
+<p><img src="http://images.changzer.cn/Snipaste_2022-10-10_14-39-11.png" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-10_14-39-11"></p>
+<p>注意：PCB是进程存在的唯一标志</p>
+<h3 id="1-3-进程的特征"><a href="#1-3-进程的特征" class="headerlink" title="1.3 进程的特征"></a>1.3 进程的特征</h3><p><img src="http://images.changzer.cn/image-20221010144038138.png" srcset="/img/loading.gif" lazyload alt="image-20221010144038138"></p>
+<p><img src="http://images.changzer.cn/image-20221010144047345.png" srcset="/img/loading.gif" lazyload alt="image-20221010144047345"></p>
+<blockquote>
+<p>操作系统的目标：</p>
+<p>程序顺序执行：一个较大的程序通常由若干个程序段组成</p>
+<p>程序在执行时，必须按照某种先后顺序逐个执行，仅当前一操作执行完后，才能执行后继操作</p>
+<p>前趋图：有向无循环图，用于描述进程之间执行的先后顺序；结点表示进程或程序段，有向边表示前驱关系</p>
+<p>程序并发执行：采用多道程序技术，将多个程序同时装入内存，使之并发运行</p>
+</blockquote>
+<h2 id="2-进程的状态与转换、进程的组织"><a href="#2-进程的状态与转换、进程的组织" class="headerlink" title="2 进程的状态与转换、进程的组织"></a>2 进程的状态与转换、进程的组织</h2><h3 id="2-1-进程的状态"><a href="#2-1-进程的状态" class="headerlink" title="2.1 进程的状态"></a>2.1 进程的状态</h3><h4 id="2-1-1-创建态、就绪态"><a href="#2-1-1-创建态、就绪态" class="headerlink" title="2.1.1 创建态、就绪态"></a>2.1.1 创建态、就绪态</h4><p>进程正在被创建时，它的状态是“创建态”，在这个阶段操作系统会为进程<strong>分配资源、初始化PCB</strong></p>
+<p>当进程创建完成后，便进入“就绪态”，处于就绪态的进程<strong>已经具备运行条件，但由于没有空闲CPU</strong>，就暂时不能运行</p>
+<h4 id="2-1-2-运行态"><a href="#2-1-2-运行态" class="headerlink" title="2.1.2 运行态"></a>2.1.2 运行态</h4><p>当CPU空闲时，操作系统就会选择一个就绪进程，让它上处理机运行。如果一个进程此时<strong>在CPU上运行</strong>，那么这个进程处于“<strong>运行态</strong>”CPU会执行该进程对应的程序（执行指令序列）</p>
+<h4 id="2-1-3-阻塞态"><a href="#2-1-3-阻塞态" class="headerlink" title="2.1.3 阻塞态"></a>2.1.3 阻塞态</h4><p>在进程运行的过程中，可能会<strong>请求等待某个事件的发生</strong>（如等待某种系统资源的分配，或者等待其他进程的响应）</p>
+<p><strong>在这个事件发生之前</strong>，进程无法继续往下执行，此时操作系统会让这个进程下CPU，并让它进入“阻塞态”</p>
+<p>当CPU空闲时，又会选择另一个“就绪态”进程上CPU运行</p>
+<h4 id="2-1-4-终止态"><a href="#2-1-4-终止态" class="headerlink" title="2.1.4 终止态"></a>2.1.4 终止态</h4><p>一个进程可以<strong>执行exit系统调用</strong>，请求操作系统终止该进程。此时该进程会进入“终止态”，操作系统会让该进程下CPU，并回收内存空间等资源，最后还要回收该进程的PCB</p>
+<p>当终止进程的工作完成之后，这个<strong>进程就彻底消失了</strong></p>
+<h3 id="2-2-进程状态的转换"><a href="#2-2-进程状态的转换" class="headerlink" title="2.2 进程状态的转换"></a>2.2 进程状态的转换</h3><p><img src="http://images.changzer.cn/image-20221010144621449.png" srcset="/img/loading.gif" lazyload alt="image-20221010144621449"></p>
+<p><img src="http://images.changzer.cn/image-20221010144646991.png" srcset="/img/loading.gif" lazyload alt="image-20221010144646991"></p>
+<p><img src="http://images.changzer.cn/image-20221010144715770.png" srcset="/img/loading.gif" lazyload alt="image-20221010144715770"></p>
+<h3 id="2-3-进程的组织"><a href="#2-3-进程的组织" class="headerlink" title="2.3 进程的组织"></a>2.3 进程的组织</h3><h4 id="2-3-1-链式方式"><a href="#2-3-1-链式方式" class="headerlink" title="2.3.1 链式方式"></a>2.3.1 链式方式</h4><p><img src="http://images.changzer.cn/image-20221010144748658.png" srcset="/img/loading.gif" lazyload alt="image-20221010144748658"></p>
+<p><img src="http://images.changzer.cn/image-20221010144827584.png" srcset="/img/loading.gif" lazyload alt="image-20221010144827584"></p>
+<h4 id="2-3-2-索引方式"><a href="#2-3-2-索引方式" class="headerlink" title="2.3.2 索引方式"></a>2.3.2 索引方式</h4><p><img src="http://images.changzer.cn/image-20221010144858905.png" srcset="/img/loading.gif" lazyload alt="image-20221010144858905"></p>
+<p><img src="http://images.changzer.cn/image-20221010144914239.png" srcset="/img/loading.gif" lazyload alt="image-20221010144914239"></p>
+<p><img src="http://images.changzer.cn/image-20221010144935329.png" srcset="/img/loading.gif" lazyload alt="image-20221010144935329"></p>
+<h2 id="3-进程控制"><a href="#3-进程控制" class="headerlink" title="3 进程控制"></a>3 进程控制</h2><h3 id="3-1-什么是进程控制？（实现进程状态转换）"><a href="#3-1-什么是进程控制？（实现进程状态转换）" class="headerlink" title="3.1 什么是进程控制？（实现进程状态转换）"></a>3.1 什么是进程控制？（实现进程状态转换）</h3><p>进程控制的主要功能是对系统中的所有进程实施有效的管理，它具有创建新进程、撤销已有进程、实现进程状态转换等功能</p>
+<h3 id="3-2-如何实现进程控制？（用“原语”实现）"><a href="#3-2-如何实现进程控制？（用“原语”实现）" class="headerlink" title="3.2 如何实现进程控制？（用“原语”实现）"></a>3.2 如何实现进程控制？（用“原语”实现）</h3><p>原语是一种特殊的程序，它的执行具有<strong>原子性</strong>（可以用“关中断指令”和”开中断指令“这两个特权指令实现原子性）。也就是说，这段程序的运行必须是一气呵成，不可中断</p>
+<p>如果不“一气呵成”，就有可能导致操作系统中的某些关键数据结构信息不统一的情况，这会影响操作系统进行别的管理工作</p>
+<p>正常情况：CPU每执行完一条指令都会例行检查是否有中断信号需要处理，如果有，则暂停运行当前这段程序，转而执行相应的中断处理程序</p>
+<p>CPU执行了<strong>关中断</strong>指令之后，就<strong>不再例行检查中断信号</strong>，直到执行<strong>开中断</strong>指令之后才会<strong>恢复检查</strong>。这样，关中断、开中断之间的这些指令序列就是不可被中断的，这就实现了“原子性”</p>
+<h3 id="3-3-进程控制相关的原语"><a href="#3-3-进程控制相关的原语" class="headerlink" title="3.3 进程控制相关的原语"></a>3.3 进程控制相关的原语</h3><p><img src="http://images.changzer.cn/image-20221010145330417.png" srcset="/img/loading.gif" lazyload alt="image-20221010145330417"></p>
+<p><img src="http://images.changzer.cn/image-20221010145413228.png" srcset="/img/loading.gif" lazyload alt="image-20221010145413228"></p>
+<p><img src="http://images.changzer.cn/image-20221010145448296.png" srcset="/img/loading.gif" lazyload alt="image-20221010145448296"></p>
+<p><img src="http://images.changzer.cn/image-20221010145550936.png" srcset="/img/loading.gif" lazyload alt="image-20221010145550936"></p>
+<blockquote>
+<p>CPU中会设置很多“寄存器”，用来存放程序运行过程中所需的某些数据</p>
+<p>​	PSW：程序状态寄存器</p>
+<p>​	PC：程序计数器，存放下一条指令的地址</p>
+<p>​	IR：指令寄存器，存放当前正在执行的指令</p>
+<p>​	通用寄存器：其他一些必要信息</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221010145728062.png" srcset="/img/loading.gif" lazyload alt="image-20221010145728062"></p>
+<h2 id="4-进程通信"><a href="#4-进程通信" class="headerlink" title="4 进程通信"></a>4 进程通信</h2><h3 id="4-1-什么是进程通信？"><a href="#4-1-什么是进程通信？" class="headerlink" title="4.1 什么是进程通信？"></a>4.1 什么是进程通信？</h3><p>是指两个进程之间产生<strong>数据交互</strong></p>
+<h3 id="4-2-为什么进程通信需要操作系统支持"><a href="#4-2-为什么进程通信需要操作系统支持" class="headerlink" title="4.2 为什么进程通信需要操作系统支持?"></a>4.2 为什么进程通信需要操作系统支持?</h3><p>进程是分配系统资源的单位（包括内存地址空间），因此<strong>各进程</strong>拥有的<strong>内存地址空间相互独立</strong></p>
+<p>为了保证安全，<strong>一个进程不能直接访问另一个进程的地址空间</strong></p>
+<h3 id="4-3-共享存储"><a href="#4-3-共享存储" class="headerlink" title="4,3 共享存储"></a>4,3 共享存储</h3><p><img src="http://images.changzer.cn/image-20221010150302739.png" srcset="/img/loading.gif" lazyload alt="image-20221010150302739"></p>
+<p><img src="http://images.changzer.cn/image-20221010150331896.png" srcset="/img/loading.gif" lazyload alt="image-20221010150331896"></p>
+<blockquote>
+<p>为避免出错，各个进程对共享空间的访问应该是互斥的。各个进程可使用操作系统内核提供的同步互斥工具（例如P、V操作）</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221010150436136.png" srcset="/img/loading.gif" lazyload alt="image-20221010150436136"></p>
+<h3 id="4-4-消息传递"><a href="#4-4-消息传递" class="headerlink" title="4.4 消息传递"></a>4.4 消息传递</h3><p> 进程间的数据交换以<strong>格式化的消息</strong>为单位。进程通过操作系统提供的“发送消息&#x2F;接收消息”两个<strong>原语</strong>进行数据交换</p>
+<p><img src="http://images.changzer.cn/image-20221010150633375.png" srcset="/img/loading.gif" lazyload alt="image-20221010150633375"></p>
+<h4 id="4-4-1-直接通信方式（点名道姓的通信方式）"><a href="#4-4-1-直接通信方式（点名道姓的通信方式）" class="headerlink" title="4.4.1 直接通信方式（点名道姓的通信方式）"></a>4.4.1 直接通信方式（点名道姓的通信方式）</h4><p><img src="http://images.changzer.cn/image-20221010150721842.png" srcset="/img/loading.gif" lazyload alt="image-20221010150721842"></p>
+<h4 id="4-4-2-间接通信方式（以“信箱”作为中间实体进行消息传递）"><a href="#4-4-2-间接通信方式（以“信箱”作为中间实体进行消息传递）" class="headerlink" title="4.4.2 间接通信方式（以“信箱”作为中间实体进行消息传递）"></a>4.4.2 间接通信方式（以“信箱”作为中间实体进行消息传递）</h4><p><img src="http://images.changzer.cn/image-20221010150802608.png" srcset="/img/loading.gif" lazyload alt="image-20221010150802608"></p>
+<h3 id="4-5-管道通信"><a href="#4-5-管道通信" class="headerlink" title="4.5 管道通信"></a>4.5 管道通信</h3><p><img src="http://images.changzer.cn/image-2022101015090120.png" srcset="/img/loading.gif" lazyload alt="image-2022101015090120"></p>
+<p>“管道”是一种特殊的共享文件，又名pipe文件。其实就是在内存中开辟一个<strong>大小固定</strong>的内存缓冲区</p>
+<p><img src="http://images.changzer.cn/image-20221010151122203.png" srcset="/img/loading.gif" lazyload alt="image-20221010151122203"></p>
+<p><img src="http://images.changzer.cn/image-20221010151227214.png" srcset="/img/loading.gif" lazyload alt="image-20221010151227214"></p>
+<h2 id="5-线程的概念"><a href="#5-线程的概念" class="headerlink" title="5 线程的概念"></a>5 线程的概念</h2><h3 id="5-1-什么是线程，为什么要引入线程？"><a href="#5-1-什么是线程，为什么要引入线程？" class="headerlink" title="5.1 什么是线程，为什么要引入线程？"></a>5.1 什么是线程，为什么要引入线程？</h3><p>还没有引入进程之前，系统中各个程序只能串行执行</p>
+<p>有的进程可能需要“同时”做很多事，二传统的进程只能串行地执行一系列程序。为此，引入了“线程”，来增加并发度</p>
+<p>传统的进程是程序执行流的最小单位</p>
+<p>引入线程后，线程成为了程序需执行流的最小单位</p>
+<p><code>可以把线程理解为“轻量级进程”</code></p>
+<p>线程是一个<strong>基本的CPU执行单元</strong>，也是<strong>程序执行流的最小单位</strong>。</p>
+<p>引入线程之后，不仅是进程之间可以并发，<strong>进程内的各线程之间也可以并发</strong>，从而进一步提升了系统的并发度，使得一个进程内也可以并发处理各种任务；进程只是作为除CPU之外的系统资源的分配单元（如打印机、内存地址空间等都是分配给进程的）</p>
+<h3 id="5-2-引入线程机制后，有什么变化？"><a href="#5-2-引入线程机制后，有什么变化？" class="headerlink" title="5.2 引入线程机制后，有什么变化？"></a>5.2 引入线程机制后，有什么变化？</h3><p><img src="http://images.changzer.cn/image-20221010151751838.png" srcset="/img/loading.gif" lazyload alt="image-20221010151751838"></p>
+<h3 id="5-3-线程的属性"><a href="#5-3-线程的属性" class="headerlink" title="5.3 线程的属性"></a>5.3 线程的属性</h3><p><img src="http://images.changzer.cn/image-20221010151901647.png" srcset="/img/loading.gif" lazyload alt="image-20221010151901647"></p>
+<h2 id="6-线程的实现方式和多线程模型"><a href="#6-线程的实现方式和多线程模型" class="headerlink" title="6 线程的实现方式和多线程模型"></a>6 线程的实现方式和多线程模型</h2><h3 id="6-1-线程的实现方式"><a href="#6-1-线程的实现方式" class="headerlink" title="6.1 线程的实现方式"></a>6.1 线程的实现方式</h3><h4 id="6-1-1-用户级线程"><a href="#6-1-1-用户级线程" class="headerlink" title="6.1.1 用户级线程"></a>6.1.1 用户级线程</h4><p>历史背景：早期的操作系统只支持进程，不支持线程。当时的“线程”是由线程库实现的。</p>
+<p><img src="http://images.changzer.cn/image-20221010152031415.png" srcset="/img/loading.gif" lazyload alt="image-20221010152031415"></p>
+<blockquote>
+<p>很多编程语言提供了强大的线程库，可以实现线程的创建、销毁、调度等功能</p>
+</blockquote>
+<p>1.线程的管理工作是由应用程序通过线程库来完成，所有的线程管理工作都由应用程序负责</p>
+<p>2.线程切换不需要操作系统干涉，线程切换可以在用户态下即可完成</p>
+<p>3.操作系统不能意识到用户级线程的存在，“用户级线程”就是“从用户视角看能看到的线程”</p>
+<p>4.优缺点</p>
+<p>优点：用户级线程的切换在用户空间即可完成，不需要切换到核心态，线程管理的开销小，效率高</p>
+<p>缺点：当一个<strong>用户级线程被阻塞</strong>后，整个<strong>进程都会被阻塞</strong>，并发度不高。<strong>多个线程不可在多核处理机上并行运行</strong></p>
+<h4 id="6-1-2-内核级线程（由操作系统支持的线程）"><a href="#6-1-2-内核级线程（由操作系统支持的线程）" class="headerlink" title="6.1.2 内核级线程（由操作系统支持的线程）"></a>6.1.2 内核级线程（由操作系统支持的线程）</h4><p><img src="http://images.changzer.cn/image-20221010152635080.png" srcset="/img/loading.gif" lazyload alt="image-20221010152635080"></p>
+<p>1.<strong>内核级线程的管理工作</strong>由<strong>操作系统</strong>内核完成。<br>2.线程调度、切换等工作都由内核负责，因此<strong>内核级线程</strong>的切换必然需要在<strong>核心态</strong>下才能完成。<br>3.操作系统会为每个内核级线程建立相应的TCB (Thread Control Block，线程控制块），通过TCB对线程进行管理。<strong>“内核级线程”</strong>就是<strong>“从操作系统内核视角看能看到的线程”</strong><br>4.优缺点<br>优点：当一个线程被阻塞后，别的线程还可以继续执行，并发能力强。多线程可在多核处理机上并行执行。<br>缺点：一个用户进程会占用多个内核级线程，线程切换由操作系统内核完成，需要切换到核心态，因此线程管理的成本高，开销大。</p>
+<h3 id="6-2多线程模型"><a href="#6-2多线程模型" class="headerlink" title="6.2多线程模型"></a>6.2多线程模型</h3><p>在支持内核级线程的系统中，根据用户级线程和内核级线程的映射关系，可以划分为几种多线程模型</p>
+<p><img src="http://images.changzer.cn/image-20221012173448890.png" srcset="/img/loading.gif" lazyload alt="image-20221012173448890"></p>
+<p><img src="http://images.changzer.cn/image-20221012173532916.png" srcset="/img/loading.gif" lazyload alt="image-20221012173532916"></p>
+<p><img src="http://images.changzer.cn/image-20221012173543906.png" srcset="/img/loading.gif" lazyload alt="image-20221012173543906"></p>
+<p><img src="http://images.changzer.cn/image-20221012173554227.png" srcset="/img/loading.gif" lazyload alt="image-20221012173554227"></p>
+<p>内核级进程中可以运行任意一个有映射关心的用户级线程代码，只有两个内核级线程中正在运行的代码逻辑都阻塞时，这个进程才会阻塞。</p>
+<p><img src="http://images.changzer.cn/image-20221012173636419.png" srcset="/img/loading.gif" lazyload alt="image-20221012173636419"></p>
+<h2 id="7-线程的状态与转换"><a href="#7-线程的状态与转换" class="headerlink" title="7 线程的状态与转换"></a>7 线程的状态与转换</h2><p><img src="http://images.changzer.cn/image-20221012173700437.png" srcset="/img/loading.gif" lazyload alt="image-20221012173700437"></p>
+<h3 id="7-1-线程的组织与控制"><a href="#7-1-线程的组织与控制" class="headerlink" title="7.1 线程的组织与控制"></a>7.1 线程的组织与控制</h3><p><img src="http://images.changzer.cn/image-20221012173730326.png" srcset="/img/loading.gif" lazyload alt="image-20221012173730326"></p>
+<h2 id="8-调度的概念、层次"><a href="#8-调度的概念、层次" class="headerlink" title="8 调度的概念、层次"></a>8 调度的概念、层次</h2><h3 id="8-1-高级调度"><a href="#8-1-高级调度" class="headerlink" title="8.1 高级调度"></a>8.1 高级调度</h3><p><img src="http://images.changzer.cn/image-20221012174659287.png" srcset="/img/loading.gif" lazyload alt="image-20221012174659287"></p>
+<p><img src="http://images.changzer.cn/image-20221012174725534.png" srcset="/img/loading.gif" lazyload alt="image-20221012174725534"></p>
+<h3 id="8-2-中级调度"><a href="#8-2-中级调度" class="headerlink" title="8.2 中级调度"></a>8.2 中级调度</h3><p><strong>内存不够</strong>时，可将某些进程的数据<strong>调出外存</strong>。等内存空闲或者进程需要运行时再重新调入内存</p>
+<p>暂时调到外存等待的进程状态为<strong>挂起状态</strong>。被挂起的进程PCB会被组织成<strong>挂起队列</strong></p>
+<p>中级调度（内存调度）—— 按照某种策略决定将哪个处于挂起状态的进程重新调入内存</p>
+<h3 id="8-3-低级调度"><a href="#8-3-低级调度" class="headerlink" title="8.3 低级调度"></a>8.3 低级调度</h3><p>低级调度（进程调度&#x2F;处理机调度）——按照某种策略从就绪队列中选取一个进程，将处理机分配给它</p>
+<p>进程调度是操作系统中<strong>最基本的一种调度</strong>，在一般的操作系统中都必须配置进程调度</p>
+<p>进程调度的频率很高，一般几十毫秒一次</p>
+<h3 id="8-4-进程的挂起态与七状态模型"><a href="#8-4-进程的挂起态与七状态模型" class="headerlink" title="8.4 进程的挂起态与七状态模型"></a>8.4 进程的挂起态与七状态模型</h3><p>暂时调到外存等待的进程状态为挂起状态</p>
+<p>挂起态又可以进一步细分为<strong>就绪挂起</strong>、<strong>阻塞挂起</strong>两种状态</p>
+<p>五状态模型-&gt;七状态模型</p>
+<p><img src="http://images.changzer.cn/image-20221012175127048.png" srcset="/img/loading.gif" lazyload alt="image-20221012175127048"></p>
+<p><img src="http://images.changzer.cn/image-20221012175144177.png" srcset="/img/loading.gif" lazyload alt="image-20221012175144177"></p>
+<p><img src="http://images.changzer.cn/image-20221012175149878.png" srcset="/img/loading.gif" lazyload alt="image-20221012175149878"></p>
+<p><img src="http://images.changzer.cn/image-20221012175238915.png" srcset="/img/loading.gif" lazyload alt="image-20221012175238915"></p>
+<h2 id="9-进程调度的时机、切换与过程调度方式"><a href="#9-进程调度的时机、切换与过程调度方式" class="headerlink" title="9 进程调度的时机、切换与过程调度方式"></a>9 进程调度的时机、切换与过程调度方式</h2><h3 id="9-1-进程调度的时机"><a href="#9-1-进程调度的时机" class="headerlink" title="9.1 进程调度的时机"></a>9.1 进程调度的时机</h3><p>进程调度（低级调度），就是按照某种算法从就绪队列中选择一个进程为其分配处理机</p>
+<p><img src="http://images.changzer.cn/image-20221012175443017.png" srcset="/img/loading.gif" lazyload alt="image-20221012175443017"></p>
+<p><img src="http://images.changzer.cn/image-20221012175502080.png" srcset="/img/loading.gif" lazyload alt="image-20221012175502080"></p>
+<p>临界资源：<strong>一个时间段</strong>只允许<strong>一个进程</strong>使用的资源。各进程需要<strong>互斥</strong>地访问临界资源</p>
+<p>临界区：访问临界资源的那段代码</p>
+<p><strong>内核程序临界区</strong>一般是用来访问某种内核数据结构的，比如进程的就绪队列（由各就绪进程的PCB组成）</p>
+<p><img src="http://images.changzer.cn/image-20221012175612313.png" srcset="/img/loading.gif" lazyload alt="image-20221012175612313"></p>
+<h3 id="9-2-进程调度的方式"><a href="#9-2-进程调度的方式" class="headerlink" title="9.2 进程调度的方式"></a>9.2 进程调度的方式</h3><ol>
+<li><p><strong>非剥夺调度方式</strong>，又称<strong>非抢占方式</strong>。即，只允许进程<strong>主动放弃处理机</strong>。在运行过程中即便有更紧迫的任务到达，当前进程依然会继续使用处理机，直到该进程终止或主动要求进入阻塞态</p>
+<p>实现简单，系统开销小但是无法及时处理紧急任务，适合于早期的批处理系统</p>
+</li>
+<li><p><strong>剥夺调度方式</strong>，又称<strong>抢占方式</strong>。当一个进程正在进程处理机上执行时，如果有一个更重要或更紧迫的进程需要使用处理机，则<strong>立即暂停正在执行的进程</strong>，将处理机<strong>分配给更重要紧迫的那个进程</strong></p>
+<p>可以优先处理更紧急的进程，也可实现让各进程时间片轮流执行的功能（通过时钟中断）。适合于分时操作系统、实时操作系统</p>
+</li>
+</ol>
+<h3 id="9-3-进程的切换与过程"><a href="#9-3-进程的切换与过程" class="headerlink" title="9.3 进程的切换与过程"></a>9.3 进程的切换与过程</h3><p>“狭义的进程调度”与“进程切换”的区别：</p>
+<p><code>狭义的进程调度</code>指的是<strong>从就绪队列中选中一个要运行的进程</strong>。（这个进程可以是刚刚被暂停执行的进程，也可能是另一个进程，后一种情况就需要进程切换）</p>
+<p><code>广义的进程调度</code>包含了<strong>选择一个进程</strong>和<strong>进程切换</strong>两个步骤。</p>
+<p>进程切换的过程主要完成了：</p>
+<ol>
+<li><p>对<strong>原来</strong>运行进程各种<strong>数据的保存</strong></p>
+</li>
+<li><p>对<strong>新的进程</strong>各种数据的<strong>恢复</strong>（如：程序计数器、程序状态字、各种数据寄存器等处理机现场信息，这些信息一般保存在进程控制块）</p>
+</li>
+</ol>
+<p>注意：<strong>进程切换是有代价</strong>的，因此如果过于频繁的进行进程调度、切换，必然会使整个系统的效率降低，使系统大部分时间都花在进程切换上，而真正用于执行进程的时间减少</p>
+<p><img src="http://images.changzer.cn/image-20221012175900557.png" srcset="/img/loading.gif" lazyload alt="image-20221012175900557"></p>
+<h2 id="10-调度器和闲逛进程"><a href="#10-调度器和闲逛进程" class="headerlink" title="10 调度器和闲逛进程"></a>10 调度器和闲逛进程</h2><h3 id="10-1-调度器-x2F-调度程序"><a href="#10-1-调度器-x2F-调度程序" class="headerlink" title="10.1 调度器&#x2F;调度程序"></a>10.1 调度器&#x2F;调度程序</h3><p><img src="http://images.changzer.cn/image-20221012180405086.png" srcset="/img/loading.gif" lazyload alt="image-20221012180405086"></p>
+<p><img src="http://images.changzer.cn/image-20221012180433959.png" srcset="/img/loading.gif" lazyload alt="image-20221012180433959"></p>
+<h3 id="10-2-闲逛进程"><a href="#10-2-闲逛进程" class="headerlink" title="10.2 闲逛进程"></a>10.2 闲逛进程</h3><p>调度程序永远的备胎，<strong>没有其他就绪进程时，运行闲逛进程</strong></p>
+<p>特性：</p>
+<p>1）优先级最低</p>
+<p>2）可以是0地址指令，站一个完整的指令周期（<strong>指令周期末尾例行检查中断</strong>）</p>
+<p>3）能耗低</p>
+<h2 id="11-调度算法的评价指标"><a href="#11-调度算法的评价指标" class="headerlink" title="11 调度算法的评价指标"></a>11 调度算法的评价指标</h2><h3 id="11-1-CPU利用率"><a href="#11-1-CPU利用率" class="headerlink" title="11.1 CPU利用率"></a>11.1 CPU利用率</h3><p>由于早期的CPU造价及其昂贵，因此人们会希望让CPU尽可能多迪工作</p>
+<p>CPU利用率：指CPU“忙碌”的时间占总时间的比例</p>
+<p><img src="http://images.changzer.cn/image-20221012181358834.png" srcset="/img/loading.gif" lazyload alt="image-20221012181358834"></p>
+<p>通常会考察<strong>多道程序并发执行</strong>的情况，可以用“甘特图”来辅助计算</p>
+<h3 id="11-2-系统吞吐量"><a href="#11-2-系统吞吐量" class="headerlink" title="11.2 系统吞吐量"></a>11.2 系统吞吐量</h3><p>单位时间内完成作业的数量</p>
+<p><img src="http://images.changzer.cn/image-20221012181424511.png" srcset="/img/loading.gif" lazyload alt="image-20221012181424511"></p>
+<h3 id="11-3-周转时间"><a href="#11-3-周转时间" class="headerlink" title="11.3 周转时间"></a>11.3 周转时间</h3><p>是指从<strong>作业被提交给系统开始</strong>，<strong>到作业完成为止</strong>的这段时间间隔</p>
+<p>它包括四个部分：</p>
+<ol>
+<li><p>作业在外存<strong>后备队列</strong>上等待作业调度（高级调度）的时间</p>
+</li>
+<li><p>进程在<strong>就绪队列</strong>上等待进程调度（低级调度）的时间</p>
+</li>
+<li><p>进程在<strong>CPU上</strong>执行的时间</p>
+</li>
+<li><p>进程<strong>等待I&#x2F;O</strong>操作完成的时间</p>
+</li>
+</ol>
+<p>后三项在一个作业的整个处理过程中，可能发生多次</p>
+<p><img src="http://images.changzer.cn/Snipaste_2022-10-12_18-15-49.png" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-12_18-15-49"></p>
+<p>有的作业运行时间短，有的作业运行时间长，因此在周转时间相同的情况下，运行时间不同的作业，给用户的感觉肯定是不一样的</p>
+<p><img src="http://images.changzer.cn/image-20221012181727007.png" srcset="/img/loading.gif" lazyload alt="image-20221012181727007"></p>
+<p>对于周转时间相同的两个作业，实际运行时间长的作业相同时间内被服务的时间更多，带权周转时间更小，用户满意度更带权周转时间与周转时间都是越小越好</p>
+<p><img src="http://images.changzer.cn/image-20221012181706132.png" srcset="/img/loading.gif" lazyload alt="image-20221012181706132"></p>
+<h3 id="11-4-等待时间"><a href="#11-4-等待时间" class="headerlink" title="11.4 等待时间"></a>11.4 等待时间</h3><p>指进程&#x2F;作业处于<strong>等待处理机状态时间之和</strong>，等待时间越长，用户满意度越低</p>
+<p>作业在后备队里等待被服务（调度）。作业调入内存后，建立对应的进程。这个进程会被CPU服务</p>
+<p>会被I&#x2F;O设备服务，当然也会有等待被服务的时候</p>
+<p>对于进程来说，等待时间就是指<strong>进程建立后等待被服务的时间之和</strong>，在<strong>等待I&#x2F;O完成的期间其实进程也是在被服务</strong>的，所以不计入等待时间</p>
+<p>对于作业来说，不仅要考虑<strong>建立进程后的等待时间</strong>，还要加上<strong>作业在外存后备队列中等待的时间</strong></p>
+<p><img src="http://images.changzer.cn/image-20221012181940115.png" srcset="/img/loading.gif" lazyload alt="image-20221012181940115"></p>
+<h3 id="11-4-响应时间"><a href="#11-4-响应时间" class="headerlink" title="11.4 响应时间"></a>11.4 响应时间</h3><p>指从用户<strong>提交请求到首次产生响应</strong>所用的时间</p>
+<p><img src="http://images.changzer.cn/image-20221012182031958.png" srcset="/img/loading.gif" lazyload alt="image-20221012182031958"></p>
+<h2 id="12-调度算法"><a href="#12-调度算法" class="headerlink" title="12 调度算法"></a>12 调度算法</h2><h3 id="12-1-先来先服务（FCFS）"><a href="#12-1-先来先服务（FCFS）" class="headerlink" title="12.1 先来先服务（FCFS）"></a>12.1 先来先服务（FCFS）</h3><p><img src="http://images.changzer.cn/image-20221012182329968.png" srcset="/img/loading.gif" lazyload alt="image-20221012182329968"></p>
+<p><img src="http://images.changzer.cn/image-20221012182439478.png" srcset="/img/loading.gif" lazyload alt="image-20221012182439478"></p>
+<p>优点：公平、算法实现简单</p>
+<p>缺点：排在长作业（进程）后面的短作业需要等待很长时间，带权周转时间很大，对短作业来说用户体验不好。即FCFS算法<strong>对长作业有利，对短作业不利</strong></p>
+<p><strong>不会导致饥饿</strong></p>
+<h3 id="12-2-短作业优先（SJF）"><a href="#12-2-短作业优先（SJF）" class="headerlink" title="12.2 短作业优先（SJF）"></a>12.2 短作业优先（SJF）</h3><p><img src="http://images.changzer.cn/image-20221012182619877.png" srcset="/img/loading.gif" lazyload alt="image-20221012182619877"></p>
+<p>使用短进程优先调度算法</p>
+<p><strong>每次调度当前<code>已经到达</code>且<code>运行时间最短</code>的作业&#x2F;进程</strong></p>
+<p><img src="http://images.changzer.cn/image-20221012182805675.png" srcset="/img/loading.gif" lazyload alt="image-20221012182805675"></p>
+<p><img src="http://images.changzer.cn/image-20221012182752900.png" srcset="/img/loading.gif" lazyload alt="image-20221012182752900"></p>
+<p>对比FCFS算法的结果，显然SPF算法的平均等待&#x2F;周转&#x2F;带权周转时间都要更低</p>
+<p>​	<code>“最短剩余时间优先算法”	</code></p>
+<p>每当<strong>有进程加入就绪队列</strong>改变时就<strong>需要调度</strong>，如果新到达的进程剩余时间比当前运行的进程剩余时间更短，则由新进程抢占处理机，当前运行进程重新回到就绪队列。另外，当一个进程完成时也需要调度</p>
+<p><img src="http://images.changzer.cn/image-20221012183124526.png" srcset="/img/loading.gif" lazyload alt="image-20221012183124526"></p>
+<p>注意几个小细节：</p>
+<p>1.如果题目中未特别说明，所提到的<strong>默认是非抢占式</strong></p>
+<p>2.在<strong>所有进程同时可运行时</strong>，采用SJF调度算法的平均等待时间、平均周转时间最少</p>
+<p>或者在<strong>所有进程都几乎同时到达</strong>时，采用SJF调度算法的平均等待时间、平均周转时间最少</p>
+<p><img src="C:\Users\neiko\AppData\Roaming\Typora\typora-user-images\image-20221012183531724.png" srcset="/img/loading.gif" lazyload alt="image-20221012183531724"></p>
+<p><img src="http://images.changzer.cn/image-20221012183543204.png" srcset="/img/loading.gif" lazyload alt="image-20221012183543204"></p>
+<p><img src="http://images.changzer.cn/image-20221012185822142.png" srcset="/img/loading.gif" lazyload alt="image-20221012185822142"></p>
+<p><img src="http://images.changzer.cn/image-20221012185827886.png" srcset="/img/loading.gif" lazyload alt="image-20221012185827886"></p>
+<h4 id="12-2-1-对FCFS和SJF两种算法的思考"><a href="#12-2-1-对FCFS和SJF两种算法的思考" class="headerlink" title="12.2.1 对FCFS和SJF两种算法的思考"></a>12.2.1 对FCFS和SJF两种算法的思考</h4><p><img src="http://images.changzer.cn/image-20221012190030378.png" srcset="/img/loading.gif" lazyload alt="image-20221012190030378"></p>
+<h3 id="12-3-高响应比优先算法"><a href="#12-3-高响应比优先算法" class="headerlink" title="12.3 高响应比优先算法"></a>12.3 高响应比优先算法</h3><p><img src="http://images.changzer.cn/image-20221012190111328.png" srcset="/img/loading.gif" lazyload alt="image-20221012190111328"></p>
+<p><img src="http://images.changzer.cn/image-20221012190213377.png" srcset="/img/loading.gif" lazyload alt="image-20221012190213377"></p>
+<p><img src="http://images.changzer.cn/image-20221012190315866.png" srcset="/img/loading.gif" lazyload alt="image-20221012190315866"></p>
+<p><img src="http://images.changzer.cn/image-20221012190330533.png" srcset="/img/loading.gif" lazyload alt="image-20221012190330533"></p>
+<p><img src="http://images.changzer.cn/image-20221012190412526.png" srcset="/img/loading.gif" lazyload alt="image-20221012190412526"></p>
+<h3 id="12-4-时间片轮转（RR）"><a href="#12-4-时间片轮转（RR）" class="headerlink" title="12.4 时间片轮转（RR）"></a>12.4 时间片轮转（RR）</h3><p>通过就绪队列，时间一到就插到队尾</p>
+<p><img src="http://images.changzer.cn/image-20221012190514750.png" srcset="/img/loading.gif" lazyload alt="image-20221012190514750"></p>
+<p><img src="http://images.changzer.cn/image-20221012190752570.png" srcset="/img/loading.gif" lazyload alt="image-20221012190752570"></p>
+<p><img src="http://images.changzer.cn/image-20221012190835215.png" srcset="/img/loading.gif" lazyload alt="image-20221012190835215"></p>
+<p><img src="http://images.changzer.cn/image-20221012191126537.png" srcset="/img/loading.gif" lazyload alt="image-20221012191126537"></p>
+<p><img src="http://images.changzer.cn/image-20221012191131736.png" srcset="/img/loading.gif" lazyload alt="image-20221012191131736"></p>
+<p><img src="http://images.changzer.cn/image-20221012191136175.png" srcset="/img/loading.gif" lazyload alt="image-20221012191136175"></p>
+<p><img src="http://images.changzer.cn/image-20221012191142663.png" srcset="/img/loading.gif" lazyload alt="image-20221012191142663"></p>
+<p><img src="http://images.changzer.cn/image-20221012191157091.png" srcset="/img/loading.gif" lazyload alt="image-20221012191157091"></p>
+<p>如果<strong>时间片太大</strong>，使得每个进程都可以在一个时间片内就完成，则时间片轮转调度算法<strong>退化为先来先服务</strong>调度算法，并且会<strong>增大进程响应时间</strong>，因此<strong>时间片不能太大</strong></p>
+<p><img src="http://images.changzer.cn/Snipaste_2022-10-12_19-12-59.png" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-12_19-12-59"></p>
+<p><img src="http://images.changzer.cn/image-20221012191344370.png" srcset="/img/loading.gif" lazyload alt="image-20221012191344370"></p>
+<h3 id="12-5-优先级调度算法"><a href="#12-5-优先级调度算法" class="headerlink" title="12.5 优先级调度算法"></a>12.5 优先级调度算法</h3><p><img src="http://images.changzer.cn/image-20221012191448545.png" srcset="/img/loading.gif" lazyload alt="image-20221012191448545"></p>
+<p><img src="http://images.changzer.cn/image-20221012192221897.png" srcset="/img/loading.gif" lazyload alt="image-20221012192221897"></p>
+<p><img src="http://images.changzer.cn/image-20221012192143187.png" srcset="/img/loading.gif" lazyload alt="image-20221012192143187"></p>
+<p>补充：就绪队列未必只有一个，可以按照不同优先级来组织。另外，也可以吧优先级高的进程排在更靠近队头的位置</p>
+<p>根据优先级是否可以动态改变，可将优先级分为静态优先级和动态优先级两种。</p>
+<p><strong>静态优先级</strong>：创建进程时确定，之后一直不变</p>
+<p><strong>动态优先级</strong>：创建进程时有一个初始值，之后会根据情况动态地调整优先级</p>
+<p>通常：</p>
+<p>系统进程优先级<strong>高于</strong>用户进程</p>
+<p>前台进程优先级<strong>高于</strong>后台进程</p>
+<p>操作系统更偏好I&#x2F;O进程（或称I&#x2F;O繁忙型进程）</p>
+<p><img src="http://images.changzer.cn/image-20221012192900573.png" srcset="/img/loading.gif" lazyload alt="image-20221012192900573"></p>
+<p>注：与I&#x2F;O型进程相对的是计算型进程（或称CPU繁忙型进程）</p>
+<p>可以从追求公平、提升资源利用率等角度考虑</p>
+<p>如果某进程在就绪队列中<strong>等待了很长时间</strong>，则可以适当<strong>提升</strong>其优先级</p>
+<p>如果某进程占用处理机<strong>运行了很长时间</strong>则可适当<strong>降低</strong>其优先级</p>
+<p>如果发现一个进程<strong>频繁地进行I&#x2F;O操作</strong>，则可适当<strong>提升</strong>其优先级</p>
+<p><img src="http://images.changzer.cn/image-20221012193011895.png" srcset="/img/loading.gif" lazyload alt="image-20221012193011895"></p>
+<h3 id="12-6-多级反馈队列调度算法"><a href="#12-6-多级反馈队列调度算法" class="headerlink" title="12.6 多级反馈队列调度算法"></a>12.6 多级反馈队列调度算法</h3><p><img src="http://images.changzer.cn/image-20221012193028565.png" srcset="/img/loading.gif" lazyload alt="image-20221012193028565"></p>
+<p><img src="http://images.changzer.cn/image-20221012193324864.png" srcset="/img/loading.gif" lazyload alt="image-20221012193324864"></p>
+<p><img src="http://images.changzer.cn/image-20221012193416477.png" srcset="/img/loading.gif" lazyload alt="image-20221012193416477"></p>
+<p><img src="http://images.changzer.cn/image-20221012193425187.png" srcset="/img/loading.gif" lazyload alt="image-20221012193425187"></p>
+<p><img src="http://images.changzer.cn/image-20221012193431015.png" srcset="/img/loading.gif" lazyload alt="image-20221012193431015"></p>
+<p><strong>会导致饥饿</strong></p>
+<p><img src="http://images.changzer.cn/image-20221012193731668.png" srcset="/img/loading.gif" lazyload alt="image-20221012193731668"></p>
+<p><img src="http://images.changzer.cn/image-20221012193742085.png" srcset="/img/loading.gif" lazyload alt="image-20221012193742085"></p>
+<h3 id="12-7-多级队列调度算法"><a href="#12-7-多级队列调度算法" class="headerlink" title="12.7 多级队列调度算法"></a>12.7 多级队列调度算法</h3><p><img src="http://images.changzer.cn/image-20221012193817662.png" srcset="/img/loading.gif" lazyload alt="image-20221012193817662"></p>
+<p><img src="http://images.changzer.cn/image-20221012193905835.png" srcset="/img/loading.gif" lazyload alt="image-20221012193905835"></p>
+<h2 id="13-进程同步、进程互斥"><a href="#13-进程同步、进程互斥" class="headerlink" title="13 进程同步、进程互斥"></a>13 进程同步、进程互斥</h2><h3 id="13-1-什么是进程同步"><a href="#13-1-什么是进程同步" class="headerlink" title="13.1 什么是进程同步"></a>13.1 什么是进程同步</h3><p>进程具有<strong>异步性</strong>的特征。异步性是指，各并发执行的进程以各自独立的、不可预知得到速度向前推进</p>
+<p><img src="http://images.changzer.cn/image-20221012194008651.png" srcset="/img/loading.gif" lazyload alt="image-20221012194008651"></p>
+<p>读进程和写进程并发地运行，由于并发必然导致异步性，因此“写数据”和“读数据”两个操作执行的先后顺序是不确定的。而实际应用中，又必须按照“写数据-&gt;读数据”的顺序来执行</p>
+<p><code>同步</code>亦称<strong>直接制约关系</strong>，它是指为完成某种任务而建立的两个或多个进程，这些进程因为需要在某些位置上<strong>协调</strong>它们的工作次序而产生的<strong>制约关系</strong>。进程间的直接制约关系就是源于它们之间的相互合作</p>
+<h3 id="13-2-什么是进程互斥"><a href="#13-2-什么是进程互斥" class="headerlink" title="13.2 什么是进程互斥"></a>13.2 什么是进程互斥</h3><p>进程的“并发：需要”共享“的支持。各个并发执行的进程不可避免的需要共享一些系统资源（比如内存、又比如打印机、摄像头这样的I&#x2F;O设备）</p>
+<p><img src="http://images.changzer.cn/image-20221012194107960.png" srcset="/img/loading.gif" lazyload alt="image-20221012194107960"></p>
+<p>我们把<strong>一个时间段内只允许一个进程使用的资源</strong>称为<code>临界资源</code>。许多物理设备都属于临界资源。此外还有许多变量、数据、内存缓冲区等都属于临界资源</p>
+<p><strong>对临界资源得到访问，必须互斥地进行</strong>。<code>互斥</code>，亦称间接制约关系。进程互斥指当一个进程访问某临界资源时，另一个想要访问该临界资源的进程必须等待。当前<strong>访问临界资源的进程访问结束</strong>，释放该资源之后，另一个进程才<strong>能去访问临界资源</strong></p>
+<p>对临界资源的互斥访问，可以在逻辑上分为如下四个部分：</p>
+<p><img src="http://images.changzer.cn/image-20221012194318482.png" srcset="/img/loading.gif" lazyload alt="image-20221012194318482"></p>
+<blockquote>
+<p>进入区：负责检查是否可进入临界区，若可进入，则应设置正在访问临界资源的标志（可理解为“上锁”），以阻止其他进程同时进入临界区</p>
+<p>临界区：访问临界资源的那段代码</p>
+<p>退出区：负责解除正在访问临界资源的标志（可理解为：解锁“）</p>
+<p>剩余区：做其他处理</p>
+</blockquote>
+<p>注意：</p>
+<p>临界区是进程中访问临界资源的代码段</p>
+<p>进入区和退出区是负责实现互斥的代码段</p>
+<p>临界区也可称为“临界段”</p>
+<p>为了实现对临界资源的互斥访问，同时保证系统整体性能，需要遵循一下原则：</p>
+<ol>
+<li><p><strong>空闲让进</strong>。临界区空闲时，可以允许一个请求进入临界区的进程<strong>立即进入</strong>临界区</p>
+</li>
+<li><p><strong>忙则等待</strong>。当已有进程进入临界区时，<strong>其他</strong>试图进入临界区的进程必须等待</p>
+</li>
+<li><p><strong>有限等待</strong>。对请求访问的进程，应保证在<strong>有限时间内进入</strong>临界区（保证不会饥饿）</p>
+</li>
+<li><p><strong>让权等待</strong>。当进程不能进入临界区时，<strong>应立即释放处理机</strong>，防止进程忙等待</p>
+</li>
+</ol>
+<p><img src="http://images.changzer.cn/image-20221012194537606.png" srcset="/img/loading.gif" lazyload alt="image-20221012194537606"></p>
+<h2 id="14-进程互斥的软件实现方法"><a href="#14-进程互斥的软件实现方法" class="headerlink" title="14 进程互斥的软件实现方法"></a>14 进程互斥的软件实现方法</h2><h3 id="14-1-单标志法"><a href="#14-1-单标志法" class="headerlink" title="14.1 单标志法"></a>14.1 单标志法</h3><p>算法思想：两个进程在访问完临界区后会把使用临界区的权限转交给另一个进程。也就是说每个进程进入临界区的权限只能被另一个进程赋予</p>
+<p><img src="http://images.changzer.cn/image-20221012195151459.png" srcset="/img/loading.gif" lazyload alt="image-20221012195151459"></p>
+<h3 id="14-2-双标志先检查法"><a href="#14-2-双标志先检查法" class="headerlink" title="14.2 双标志先检查法"></a>14.2 双标志先检查法</h3><p>算法思想：设置一个布尔型数组flag[]，数组中各个元素用来<strong>标记各进程想进入临界区的意愿</strong>，比如“flag[0]&#x3D;true”意味着0号进程P0现在想要进入临界区。每个进程在<strong>进入临界区之前</strong>先检查当前有没有别的进程想进入临界区，如果没有，则把自身对应的标志flag[i]设为true，之后开始访问临界区</p>
+<p><img src="http://images.changzer.cn/image-20221012195433244.png" srcset="/img/loading.gif" lazyload alt="image-20221012195433244"></p>
+<p><img src="http://images.changzer.cn/image-20221012195650923.png" srcset="/img/loading.gif" lazyload alt="image-20221012195650923"></p>
+<h3 id="14-3-双标志后检查法"><a href="#14-3-双标志后检查法" class="headerlink" title="14.3 双标志后检查法"></a>14.3 双标志后检查法</h3><p>算法思想：双标志先检查法的改版。前一个算法的问题是先“检查”后“上锁”，但是这两个操作又无法一气呵成，因此导致了两个进程同时进入临界区的问题。因此，人们又想到了先<strong>“上锁“后”检查“</strong>的方法，来避免上述问题</p>
+<p><img src="http://images.changzer.cn/image-20221012195802320.png" srcset="/img/loading.gif" lazyload alt="image-20221012195802320"></p>
+<p>如果按照1526的顺序执行，P0和P1都无法进入临界区</p>
+<p><img src="http://images.changzer.cn/image-20221012200034508.png" srcset="/img/loading.gif" lazyload alt="image-20221012200034508"></p>
+<h3 id="14-4-Peterson算法"><a href="#14-4-Peterson算法" class="headerlink" title="14.4 Peterson算法"></a>14.4 Peterson算法</h3><p>算法思想：结合双标志法、单标志法的思想。如果双方都争着想进入临界区，那可以让进程尝试“孔融让梨”（谦让）</p>
+<p><img src="http://images.changzer.cn/image-20221012200102371.png" srcset="/img/loading.gif" lazyload alt="image-20221012200102371"></p>
+<p><img src="http://images.changzer.cn/image-20221012200312394.png" srcset="/img/loading.gif" lazyload alt="image-20221012200312394"></p>
+<p><img src="http://images.changzer.cn/image-20221012200318659.png" srcset="/img/loading.gif" lazyload alt="image-20221012200318659"></p>
+<h2 id="15-进程互斥的硬件实现方法"><a href="#15-进程互斥的硬件实现方法" class="headerlink" title="15 进程互斥的硬件实现方法"></a>15 进程互斥的硬件实现方法</h2><h3 id="15-1-中断屏蔽方法"><a href="#15-1-中断屏蔽方法" class="headerlink" title="15.1 中断屏蔽方法"></a>15.1 中断屏蔽方法</h3><p><strong>利用“开&#x2F; 关中断指令”</strong>实现（与原语的实现思想相同，即在某进程开始访问临界区到结束访问为止不允许被中断，也就不能发生进程切换，因此也不可能发生两个同时访问临界区的情况）</p>
+<p><img src="http://images.changzer.cn/image-20221012200415474.png" srcset="/img/loading.gif" lazyload alt="image-20221012200415474"></p>
+<p>优点：简单、高效</p>
+<p>缺点：不适用于多处理机：只适用于操作系统内核进程，不适用于用户进程（因为开&#x2F;关中断指令只能运行在内核态，这组指令如果能让用户随意使用会很危险）</p>
+<h3 id="15-2-TestAndSet指令"><a href="#15-2-TestAndSet指令" class="headerlink" title="15.2 TestAndSet指令"></a>15.2 TestAndSet指令</h3><p>简称TS指令，也有地方称为TestAndLock指令，或TSL指令</p>
+<p>TSL指令是用<strong>硬件实现</strong>的，执行的过程<strong>不允许被中断</strong>，只能一气呵成。以下是用C语言描述的逻辑</p>
+<p><img src="http://images.changzer.cn/image-20221012200511040.png" srcset="/img/loading.gif" lazyload alt="image-20221012200511040"></p>
+<p><img src="http://images.changzer.cn/image-20221012200516782.png" srcset="/img/loading.gif" lazyload alt="image-20221012200516782"></p>
+<p>优点：实现简单，无需像软件实现方法那样严格检查是否会出现逻辑漏洞；适用于<strong>多处理机</strong>环境</p>
+<p>缺点：<strong>不满足“让权等待”原则</strong>，暂时无法进入临界区的进程会占用CPU并循环执行TSL指令，从而导致<strong>“忙等”</strong></p>
+<h3 id="15-3-Swap指令"><a href="#15-3-Swap指令" class="headerlink" title="15.3 Swap指令"></a>15.3 Swap指令</h3><p>有的地方也叫EXchange指令，或简称XCHG指令</p>
+<p>Swap指令是用<strong>硬件实现</strong>的，执行的过程<strong>不允许被中断</strong>，只能一气呵成。</p>
+<p><img src="http://images.changzer.cn/image-20221012200807647.png" srcset="/img/loading.gif" lazyload alt="image-20221012200807647"></p>
+<p><img src="http://images.changzer.cn/image-20221012200813831.png" srcset="/img/loading.gif" lazyload alt="image-20221012200813831"></p>
+<p>优点：实现简单，无需像软件实现方法那样严格检查是否会有逻辑漏洞；适用于多处理机环境</p>
+<p>缺点：不满足“让权等待”原则，暂时无法进入临界区的进程会占用CPU并循环执行TSL指令，从而导致“忙等”</p>
+<p><img src="http://images.changzer.cn/image-20221012201031779.png" srcset="/img/loading.gif" lazyload alt="image-20221012201031779"></p>
+<h2 id="16-互斥锁"><a href="#16-互斥锁" class="headerlink" title="16 互斥锁"></a>16 互斥锁</h2><h3 id="16-1-进程互斥：锁"><a href="#16-1-进程互斥：锁" class="headerlink" title="16.1 进程互斥：锁"></a>16.1 进程互斥：锁</h3><p>互斥锁</p>
+<p>解决临界区最简单的工具就是互斥锁。一个进程在进入临界区时应获得锁；在退出临界区时释放锁。函数acquire()获得锁，而函数release()释放锁</p>
+<p>每个互斥锁有一个布尔变量available，表示锁是否可用。如果锁是可用的，调用acquire()会成功，且锁不再可用。当一个进程试图获取不可用的锁时，会被阻塞，直到锁被释放</p>
+<p><img src="http://images.changzer.cn/image-20221012201216129.png" srcset="/img/loading.gif" lazyload alt="image-20221012201216129"></p>
+<p>acquire或release的执行必须是原子操作，因此互斥锁通常采用硬件机制来实现</p>
+<p>互斥锁的<strong>主要缺点是忙等待</strong>，当有一个进程在临界区中，任何其他进程进入临界区时<strong>必须连续循环调用acquire</strong>。当多个进程共享同一个CPU时，就浪费了CPU周期。因此，互斥锁通<strong>常用于多处理器系统</strong>，一个线程可以在一个处理器上等待，不影响其他线程的执行</p>
+<p>需要连续循环忙等的互斥锁，都可以称为<strong>自旋锁</strong>，如TSL指令、swap指令、单标志法</p>
+<p>特性：</p>
+<p>需忙等，进程时间片用完才下处理机，违反“让权等待”</p>
+<p>优点：等待期间不用切换进程上下文，多处理器系统中，若<strong>上锁的时间短，则等待代价很低</strong></p>
+<p>常用于多处理机系统，一个核忙等，其他核照常工作，并快速释放临界区</p>
+<p>不太适用于单处理机系统，忙等的过程不可能解锁</p>
+<p><img src="http://images.changzer.cn/image-20221012201445062.png" srcset="/img/loading.gif" lazyload alt="image-20221012201445062"></p>
+<h2 id="17-信号量机制"><a href="#17-信号量机制" class="headerlink" title="17 信号量机制"></a>17 信号量机制</h2><ol>
+<li><p>在双标志先检查法中，进入区的：检查“、”上锁“操作无法一气呵成，从而导致了两个进程有可能同时进入临界区的问题</p>
+</li>
+<li><p>所有的解决方案都无法实现“让权等待”</p>
+</li>
+</ol>
+<h3 id="17-1-信号量机制"><a href="#17-1-信号量机制" class="headerlink" title="17.1 信号量机制"></a>17.1 信号量机制</h3><p>用户进程可以通过使用操作系统提供的<strong>一对原语</strong>来对<strong>信号量进行操作</strong>，从而很方便的实现了<strong>进程互斥</strong>、<strong>进程同步</strong></p>
+<p><code>信号量</code>其实就是一个变量（可以是一个整数、也可以是更复杂的记录型变量），可以用一个信号量来<strong>表示系统某种资源的数量</strong>，比如系统中只有一台打印机，就可以设置一个初值为1的信号量</p>
+<p><code>原语</code>是一种特殊的程序段，其执行只能<strong>一气呵成</strong>、<strong>不可被中断</strong>。原语是由关中断&#x2F;开中断指令实现的。软件解决方案的主要问题是由“进入区的各种操作无法一气呵成”，因此如果能把进入区、退出区的操作都用“原语”实现，使这些操作能“一气呵成”就能避免问题</p>
+<p><img src="http://images.changzer.cn/image-20221012201902617.png" srcset="/img/loading.gif" lazyload alt="image-20221012201902617"></p>
+<p><img src="http://images.changzer.cn/image-20221012201907778.png" srcset="/img/loading.gif" lazyload alt="image-20221012201907778"></p>
+<p>整型信号量</p>
+<p>用一个<strong>整数型的变量</strong>作为信号量，用来表示系统中<strong>某种资源的数量</strong></p>
+<p>与普整数变量的区别：对信号量的操作只有三种，即初始化、P操作、V操作</p>
+<p><img src="http://images.changzer.cn/Snipaste_2022-10-12_20-20-55.png" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-12_20-20-55"></p>
+<h3 id="17-2-记录型信号量"><a href="#17-2-记录型信号量" class="headerlink" title="17.2 记录型信号量"></a>17.2 记录型信号量</h3><p>整型信号量的缺陷是存在“忙等”问题，因此人们又提出了“记录型信号量”，即用记录型数据结构表示的信号量</p>
+<p><img src="http://images.changzer.cn/image-20221012202328729.png" srcset="/img/loading.gif" lazyload alt="image-20221012202328729"></p>
+<blockquote>
+<p>如果剩余资源数不够，使用block原语使进程从运行态进入阻塞态，并把挂到信号量S的等待队列（即阻塞队列）中</p>
+</blockquote>
+<blockquote>
+<p>释放资源后，若还有别的进程在等待这种资源，则使用wakeup 原语唤醒等待队列中的一个进程，该进程从阻塞态变为就绪态</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221012202457366.png" srcset="/img/loading.gif" lazyload alt="image-20221012202457366"></p>
+<p><img src="http://images.changzer.cn/image-20221012202534596.png" srcset="/img/loading.gif" lazyload alt="image-20221012202534596"></p>
+<p><img src="http://images.changzer.cn/image-20221012202619642.png" srcset="/img/loading.gif" lazyload alt="image-20221012202619642"></p>
+<h2 id="18-用信号量实现进程互斥、同步、前驱关系"><a href="#18-用信号量实现进程互斥、同步、前驱关系" class="headerlink" title="18 用信号量实现进程互斥、同步、前驱关系"></a>18 用信号量实现进程互斥、同步、前驱关系</h2><h3 id="18-1-信号量机制实现进程互斥"><a href="#18-1-信号量机制实现进程互斥" class="headerlink" title="18.1 信号量机制实现进程互斥"></a>18.1 信号量机制实现进程互斥</h3><p><img src="http://images.changzer.cn/image-20221012202738387.png" srcset="/img/loading.gif" lazyload alt="image-20221012202738387"></p>
+<p>注意：对<strong>不同临界资源需要设置不同的互斥信号量</strong></p>
+<p><strong>P、V操作必须成对出现</strong>。缺少P就不能保证临界资源的互斥访问。缺少V会导致资源永不被释放，等待进程永不被唤醒。</p>
+<h3 id="18-2-信号量机制实现进程同步"><a href="#18-2-信号量机制实现进程同步" class="headerlink" title="18.2 信号量机制实现进程同步"></a>18.2 信号量机制实现进程同步</h3><p>进程同步：要让各并发进程按要求有序地推进</p>
+<p>1.分析什么地方需要实现“同步关系”，即必须保证“一前一后”执行的两个操作（或两句代码）</p>
+<p>2.设置同步信号量S，初始为0</p>
+<p>3.在“前操作”之后执行V(S)</p>
+<p>4.在“后操作”之前执行P(S)</p>
+<p><img src="http://images.changzer.cn/image-20221013143243373.png" srcset="/img/loading.gif" lazyload alt="image-20221013143243373"></p>
+<p><img src="http://images.changzer.cn/image-20221013143851686.png" srcset="/img/loading.gif" lazyload alt="image-20221013143851686"></p>
+<p>​	保证了代码4 一定是在代码2 之后执行</p>
+<h3 id="18-3-信号量机制实现前驱关系"><a href="#18-3-信号量机制实现前驱关系" class="headerlink" title="18.3 信号量机制实现前驱关系"></a>18.3 信号量机制实现前驱关系</h3><p><img src="http://images.changzer.cn/image-20221013144039770.png" srcset="/img/loading.gif" lazyload alt="image-20221013144039770"></p>
+<p><img src="http://images.changzer.cn/image-20221013144121620.png" srcset="/img/loading.gif" lazyload alt="image-20221013144121620"></p>
+<p>其实每一对前驱关系都是一个进程同步问题（需要保证一前一后的操作）</p>
+<ol>
+<li><p>要为<strong>每一对前驱</strong>关系各设置一个<strong>同步信号量</strong></p>
+</li>
+<li><p>在<strong>“前操作”之后</strong>对相应的同步信号量<strong>执行V操作</strong></p>
+</li>
+<li><p>在<strong>“后操作”之后</strong>对相应的同步信号量<strong>执行P操作</strong></p>
+</li>
+</ol>
+<p><img src="http://images.changzer.cn/image-20221013144221261.png" srcset="/img/loading.gif" lazyload alt="image-20221013144221261"></p>
+<p><img src="http://images.changzer.cn/image-20221013144346180.png" srcset="/img/loading.gif" lazyload alt="image-20221013144346180"></p>
+<h2 id="19-生产者-消费者问题"><a href="#19-生产者-消费者问题" class="headerlink" title="19 生产者-消费者问题"></a>19 生产者-消费者问题</h2><p><img src="http://images.changzer.cn/image-20221013144641190.png" srcset="/img/loading.gif" lazyload alt="image-20221013144641190"></p>
+<p>只有缓冲区没满时，生产者才能把产品放入缓冲区，否则必须等待</p>
+<p>只有缓冲区不空时，消费者才能从中取出产品，否则必须等待</p>
+<p><strong>缓冲区是临界资源，各进程必须互斥访问</strong></p>
+<h3 id="19-1-PV操作题目分析步骤"><a href="#19-1-PV操作题目分析步骤" class="headerlink" title="19.1 PV操作题目分析步骤"></a>19.1 PV操作题目分析步骤</h3><p>1.关系分析。找出题目中描述的各个进程，分析它们之间的同步、互斥关系</p>
+<p>2.整理思路。根据各进程的操作流程确定P、V操作的大致顺序</p>
+<p>3.设置信号量。根据题目条件确定信号量初值（互斥信号量初值一般为1，同步信号量的初始值要看对应资源的初始值是多少）</p>
+<p><img src="http://images.changzer.cn/image-20221013145500065.png" srcset="/img/loading.gif" lazyload alt="image-20221013145500065"></p>
+<p><img src="http://images.changzer.cn/image-20221013145505831.png" srcset="/img/loading.gif" lazyload alt="image-20221013145505831"></p>
+<p><img src="http://images.changzer.cn/image-20221013145528800.png" srcset="/img/loading.gif" lazyload alt="image-20221013145528800"></p>
+<h3 id="19-2-能否改变相邻P、V操作的顺序？"><a href="#19-2-能否改变相邻P、V操作的顺序？" class="headerlink" title="19.2 能否改变相邻P、V操作的顺序？"></a>19.2 能否改变相邻P、V操作的顺序？</h3><p><img src="http://images.changzer.cn/image-20221013145812534.png" srcset="/img/loading.gif" lazyload alt="image-20221013145812534"></p>
+<p>这就造成了生产者等待消费者释放空闲缓冲区，而消费者又等待着生产者释放临界区的情况，生产者和消费者循环等待被对方唤醒，出现“死锁”</p>
+<p>因此，<strong>实现互斥的P操作一定要在实现同步的P操作之后</strong></p>
+<p>V操作不会导致进程阻塞，<strong>因此两个V操作顺序可以交换</strong></p>
+<h2 id="20-吸烟者问题"><a href="#20-吸烟者问题" class="headerlink" title="20 吸烟者问题"></a>20 吸烟者问题</h2><p><img src="http://images.changzer.cn/image-20221013145956607.png" srcset="/img/loading.gif" lazyload alt="image-20221013145956607"></p>
+<p>这个题也属于“生产者-消费者”问题，更详细的说应该是“可生产多种产品的单生产者-多消费者”。</p>
+<p><strong>桌子</strong>可以抽象为容量为1的缓冲区，要<strong>互斥访问</strong></p>
+<p><img src="http://images.changzer.cn/image-20221013150251077.png" srcset="/img/loading.gif" lazyload alt="image-20221013150251077"></p>
+<p><img src="http://images.changzer.cn/image-20221013150331346.png" srcset="/img/loading.gif" lazyload alt="image-20221013150331346"></p>
+<p>缓冲区大小为1，同一时刻，四个同步信号量中至多有一个的值为1</p>
+<p><img src="http://images.changzer.cn/image-20221013150635169.png" srcset="/img/loading.gif" lazyload alt="image-20221013150635169"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java">provider()&#123;<br>    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>        <span class="hljs-keyword">if</span>(i==<span class="hljs-number">0</span>)&#123;<br>            P(finish);<br>            P(mutex);<br>            制作组合一;<br>            V(mutex);<br>            V(offer1)<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i==<span class="hljs-number">1</span>)&#123;<br>            P(finish);<br>            P(mutex);<br>            制作组合二;<br>            V(mutex);<br>            V(offer2)<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i==<span class="hljs-number">2</span>)&#123;<br>            P(finish);<br>            P(mutex);<br>            制作组合二;<br>            V(mutex);<br>            V(offer3)<br>        &#125;<br>        i += i % <span class="hljs-number">3</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>若一个生产者要生产多种产品（或者说会引发多种前驱事件），那么各个V操作应该放在各自对应的“事件”发生之后的位置</p>
+<h2 id="21-读者写者问题"><a href="#21-读者写者问题" class="headerlink" title="21 读者写者问题"></a>21 读者写者问题</h2><h3 id="21-1-问题描述"><a href="#21-1-问题描述" class="headerlink" title="21.1 问题描述"></a>21.1 问题描述</h3><p>有读者和写者两组并发进程，共享一个文件，当两个或两个以上的读进程同时访问共享数据时不会产生副作用，但若某个写进程或其他进程（读进程或写进程）同时访问共享数据时则可能导致数据不一致的错误。因此要求：</p>
+<p>1）<strong>允许多个读者</strong>可以同时对文件执行读操作</p>
+<p>​	读者进程在读数据后并不会将数据清空，并不会改变数据。因此多个读者可同时访问共享数据</p>
+<p>2）<strong>只允许一个写者</strong>往文件中写信息</p>
+<p>3）任一写者在完成写操作之前不允许其他读者或写者工作</p>
+<p>4）写者执行写操作前，应让<strong>已有</strong>的读者和写者<strong>全部退出</strong></p>
+<p>​	读进程与写进程同时共享数据，可能导致读出的数据不一致的问题</p>
+<p>​	两个写进程同时共享数据，可能导致数据错误覆盖的问题</p>
+<p><img src="http://images.changzer.cn/image-20221013152143910.png" srcset="/img/loading.gif" lazyload alt="image-20221013152143910"></p>
+<h3 id="21-2-如何实现"><a href="#21-2-如何实现" class="headerlink" title="21.2 如何实现"></a>21.2 如何实现</h3><p><img src="http://images.changzer.cn/image-20221013152205113.png" srcset="/img/loading.gif" lazyload alt="image-20221013152205113"></p>
+<p>潜在的问题：只要有读进程还在读，写进程就要一直阻塞等待，可能“饿死”。因此，这种算法中，<strong>读进程</strong>是<strong>优先</strong>的</p>
+<p><img src="http://images.changzer.cn/image-20221013152517398.png" srcset="/img/loading.gif" lazyload alt="image-20221013152517398"></p>
+<p><img src="http://images.changzer.cn/image-20221013152633714.png" srcset="/img/loading.gif" lazyload alt="image-20221013152633714"></p>
+<p>结论：在这种算法中，连续进入读者可以同时读文件，写者和其他进程不能同时访问文件；写者不会饥饿，但也并<strong>不是真正的“写优先”</strong>，而是相对公平的先来先服务</p>
+<p><img src="http://images.changzer.cn/image-20221013153104305.png" srcset="/img/loading.gif" lazyload alt="image-20221013153104305"></p>
+<h2 id="22-哲学家进餐问题"><a href="#22-哲学家进餐问题" class="headerlink" title="22 哲学家进餐问题"></a>22 哲学家进餐问题</h2><p><img src="http://images.changzer.cn/image-20221013153337302.png" srcset="/img/loading.gif" lazyload alt="image-20221013153337302"></p>
+<p><img src="http://images.changzer.cn/image-20221013153407491.png" srcset="/img/loading.gif" lazyload alt="image-20221013153407491"></p>
+<blockquote>
+<p>如果5个哲学家并发地拿起了自己左手边的筷子，每位哲学家循环等待右边的人放下筷子（阻塞），发生了“死锁”</p>
+</blockquote>
+<p>如何防止死锁的发生呢？</p>
+<p>1）可以对哲学家进程施加一些限制条件，比如最多允许四个哲学家同时进餐。这样可以保证至少有一个哲学家是可以拿到左右两只筷子的</p>
+<p>2）要求奇数号哲学家先拿左边的筷子，然后再拿右边的筷子，而偶数号刚好相反。用这种方式可以保证如果相邻的两个奇偶号哲学家都想吃放，那么只会有其中一个可以拿起第一只筷子，另一个会直接阻塞。这就避免了占有一支后再等待另一只的情况</p>
+<p>3）仅当一个哲学家左右两支筷子都可用时才允许他抓起筷子</p>
+<p><img src="http://images.changzer.cn/image-20221013153929213.png" srcset="/img/loading.gif" lazyload alt="image-20221013153929213"></p>
+<blockquote>
+<p>更准确的说法应该是：各哲学家<strong>拿筷子</strong>这件事必须<strong>互斥</strong>的执行。这就保证了即使一个哲学家在拿筷子拿到一半时被阻塞，也不会有别的哲学家会继续尝试拿筷子。这样的话，当前正在吃饭的哲学家放下筷子后，被阻塞的哲学家就可以获得等待的筷子</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221013154825019.png" srcset="/img/loading.gif" lazyload alt="image-20221013154825019"></p>
+<h2 id="23-管程"><a href="#23-管程" class="headerlink" title="23 管程"></a>23 管程</h2><h3 id="23-1-为什么要引入管程"><a href="#23-1-为什么要引入管程" class="headerlink" title="23.1 为什么要引入管程"></a>23.1 为什么要引入管程</h3><p>信号量机制存在的问题：编写程序困难、易出错</p>
+<p>如果写错了P操作的顺序，就可能会发生死锁</p>
+<p>能不能设计一种机制，让程序员写程序时不需要再关注复杂的PV操作，让写代码更轻松？</p>
+<h3 id="23-2-管程的定义和基本特征"><a href="#23-2-管程的定义和基本特征" class="headerlink" title="23.2 管程的定义和基本特征"></a>23.2 管程的定义和基本特征</h3><p>管程是一种特殊的软件模块，有这些部分组成：</p>
+<p>1）局部于管程的<strong>共享数据结构</strong>说明</p>
+<p>2）对该数据结构进行操作的<strong>一组过程</strong></p>
+<p>3）对局部于管程的共享数据设置初始值的语句</p>
+<p>4）管程有一个名字</p>
+<h4 id="23-2-1-管程的基本特征："><a href="#23-2-1-管程的基本特征：" class="headerlink" title="23.2.1 管程的基本特征："></a>23.2.1 管程的基本特征：</h4><ol>
+<li><p>局部于管程的数据只能被局部于管程的过程所访问</p>
+</li>
+<li><p>一个进程只有通过<strong>调用管程内的过程才能进入</strong>管程访问共享数据</p>
+</li>
+<li><p>每次<strong>仅允许一个进程</strong>在管程内执行<strong>某个内部过程</strong></p>
+</li>
+</ol>
+<h3 id="23-1-拓展1：用管程解决生产者消费者问题"><a href="#23-1-拓展1：用管程解决生产者消费者问题" class="headerlink" title="23.1 拓展1：用管程解决生产者消费者问题"></a>23.1 拓展1：用管程解决生产者消费者问题</h3><p>伪代码：</p>
+<blockquote>
+<p> 管程中设置条件变量和等待&#x2F;唤醒操作，以解决同步问题</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/Snipaste_2022-10-13_16-17-14.png" srcset="/img/loading.gif" lazyload alt="Snipaste_2022-10-13_16-17-14"></p>
+<p>引入管程的目的无非就是要更方便地实现进程互斥和同步</p>
+<ol>
+<li><p>需要在管程中定义<strong>共享数据</strong>（如生产者消费者问题的缓冲区）</p>
+</li>
+<li><p>需要在管程中那个定义用于访问这些共享数据的<strong>“入口”</strong>——其实就是一些函数（如生产者消费者问题中，可以定义一个函数用于将产品放入缓冲区，再定义一个函数用于从缓冲区取出产品）</p>
+</li>
+<li><p>只有通过这些特定的“入口”才能访问共享数据</p>
+</li>
+<li><p>管程中有很多“入口”，但是每次<strong>只能开放其中一个“入口”</strong>，并且<strong>只能让一个进程或线程进入</strong>（如生产者消费者问题中，各进程需要互斥地访问共享缓冲区。管程的这种特性即可保证一个时间段内最多一个进程在访问缓冲区。<em>注意：这种互斥特性是由编译器负责实现的，程序员并不关心</em>）</p>
+</li>
+<li><p>可在管程中设置<strong>条件变量</strong>及<strong>等待&#x2F;唤醒</strong>操作以解决同步问题。可以让一个进程或线程在条件变量上等待<em>（此时，该进程应先释放管程的使用权，也就是让出“入口”）</em>：可以通过唤醒操作将等待在条件变量上的进程或线程唤醒</p>
+</li>
+</ol>
+<p><img src="http://images.changzer.cn/image-20221013162348186.png" srcset="/img/loading.gif" lazyload alt="image-20221013162348186"></p>
+<h3 id="23-1-拓展2：java中类似于管程的机制"><a href="#23-1-拓展2：java中类似于管程的机制" class="headerlink" title="23.1 拓展2：java中类似于管程的机制"></a>23.1 拓展2：java中类似于管程的机制</h3><p>java中，如果用关键字<code>synchronized</code>来描述一个函数，那么这个函数同一时间段只能被一个线程调用</p>
+<p><img src="http://images.changzer.cn/image-20221013162850927.png" srcset="/img/loading.gif" lazyload alt="image-20221013162850927"></p>
+<p><img src="http://images.changzer.cn/image-20221013162906528.png" srcset="/img/loading.gif" lazyload alt="image-20221013162906528"></p>
+<h2 id="24-死锁的概念"><a href="#24-死锁的概念" class="headerlink" title="24 死锁的概念"></a>24 死锁的概念</h2><h3 id="24-1-什么是死锁"><a href="#24-1-什么是死锁" class="headerlink" title="24.1 什么是死锁"></a>24.1 什么是死锁</h3><p>哲学家进餐问题，每位哲学家都在等待自己右边的人放下筷子，这些哲学家进程都因等待筷子资源而被阻塞。即发生“死锁”</p>
+<p>在并发环境下，各进程因竞争资源而造成的一种<strong>互相等待对方手里的资源，导致各进程都被阻塞，都无法向前推进的现象</strong>，就是“死锁”。发生死锁后若无外力干涉，这些进程都将无法向前推进</p>
+<h3 id="24-2-死锁、饥饿、死循环的区别"><a href="#24-2-死锁、饥饿、死循环的区别" class="headerlink" title="24.2 死锁、饥饿、死循环的区别"></a>24.2 死锁、饥饿、死循环的区别</h3><p><code>死锁</code>：各进程互相等待对方手里的资源，导致各进程都阻塞，无法向前推进的现象</p>
+<p><code>饥饿</code>：由于长期得不到想要的资源，某进程无法向前推进的现象。比如：在短进程优先算法</p>
+<p><code>死循环</code>：某进程执行过程中一直跳不出某个循环的现象。有时是因为程序逻辑bug导致的，有时是程序员故意设计的</p>
+<p><img src="http://images.changzer.cn/image-20221013163314988.png" srcset="/img/loading.gif" lazyload alt="image-20221013163314988"></p>
+<h3 id="24-3-死锁产生的必要条件"><a href="#24-3-死锁产生的必要条件" class="headerlink" title="24.3 死锁产生的必要条件"></a>24.3 死锁产生的必要条件</h3><p>产生死锁必须同时满足以下四个条件，只要其中<strong>任一条件不成立，死锁就不会发生</strong></p>
+<ol>
+<li><p><code>互斥条件</code>：只有对<strong>必须互斥使用的资源的争抢</strong>才会导致死锁。像内存、扬声器这样可以同时让多个进程使用的资源是不会导致死锁的（因为进程不用阻塞等待这种资源）</p>
+</li>
+<li><p><code>不剥夺条件</code>：进程所获得的的资源在未使用完之前，<strong>不能由其他进程强行夺走</strong>，只能主动释放</p>
+</li>
+<li><p><code>请求和保持条件</code>：进程<strong>已经保持了至少一个资源</strong>，但又<strong>提出了新的资源请求</strong>，而该资源又被<strong>其他进程占有</strong>，此时请求进程<strong>被阻塞</strong>，但又对自己已有的资源<strong>保持不放</strong></p>
+</li>
+<li><p><code>循环等待的条件</code>：存在一种进程资源的<strong>循环等待链</strong>，链中的每一个进程已获得的资源被下一个进程所请求</p>
+</li>
+</ol>
+<blockquote>
+<p>注意！发生死锁时一定有循环等待，但是发生循环等待时未必死锁（循环等待时死锁的必要不充分条件）</p>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221013164303353.png" srcset="/img/loading.gif" lazyload alt="image-20221013164303353"></p>
+<h3 id="24-4-什么时候会发生死锁"><a href="#24-4-什么时候会发生死锁" class="headerlink" title="24.4 什么时候会发生死锁"></a>24.4 什么时候会发生死锁</h3><p><img src="http://images.changzer.cn/image-20221013164321209.png" srcset="/img/loading.gif" lazyload alt="image-20221013164321209"></p>
+<blockquote>
+<p><strong>总之，对不可剥夺资源的不合理分配，可能导致死锁</strong></p>
+</blockquote>
+<h3 id="24-5-死锁的处理策略"><a href="#24-5-死锁的处理策略" class="headerlink" title="24.5 死锁的处理策略"></a>24.5 死锁的处理策略</h3><ol>
+<li><p><code>预防死锁</code>。破坏死锁产生的四个必要条件中的一个或几个</p>
+</li>
+<li><p><code>避免死锁</code>。用某种方法防止进入不安全状态，从而避免死锁（银行家算法）</p>
+</li>
+<li><p><code>死锁的检测和解除</code>。允许死锁的发生，不过操作系统会负责检测出死锁的发生，然后采取某种措施解除死锁</p>
+</li>
+</ol>
+<p><img src="http://images.changzer.cn/image-20221013164439421.png" srcset="/img/loading.gif" lazyload alt="image-20221013164439421"></p>
+<h4 id="24-5-1-预防死锁"><a href="#24-5-1-预防死锁" class="headerlink" title="24.5.1 预防死锁"></a>24.5.1 预防死锁</h4><h5 id="24-5-1-1-破坏互斥条件"><a href="#24-5-1-1-破坏互斥条件" class="headerlink" title="24.5.1.1 破坏互斥条件"></a>24.5.1.1 破坏互斥条件</h5><p>互斥条件：只有对必须互斥使用的资源的争抢才会导致死锁</p>
+<p>如果把只能互斥使用的资源改造为允许共享使用，则系统不会进入死锁状态。比如：SPOOLing技术</p>
+<p><img src="http://images.changzer.cn/image-20221013164616233.png" srcset="/img/loading.gif" lazyload alt="image-20221013164616233"></p>
+<blockquote>
+<p>这个策略的缺点：并不是所有的资源都可以改造成可共享使用的资源。并且为了系统安全，很多地方还必须保护这种互斥性。因此，<strong>很多时候都无法破坏互斥条件</strong></p>
+</blockquote>
+<h5 id="24-5-1-2-破坏不剥夺条件"><a href="#24-5-1-2-破坏不剥夺条件" class="headerlink" title="24.5.1.2 破坏不剥夺条件"></a>24.5.1.2 破坏不剥夺条件</h5><p><img src="http://images.changzer.cn/image-20221013164711145.png" srcset="/img/loading.gif" lazyload alt="image-20221013164711145"></p>
+<p><img src="http://images.changzer.cn/image-20221013164715218.png" srcset="/img/loading.gif" lazyload alt="image-20221013164715218"></p>
+<h5 id="24-5-1-3-破坏请求和保持条件"><a href="#24-5-1-3-破坏请求和保持条件" class="headerlink" title="24.5.1.3 破坏请求和保持条件"></a>24.5.1.3 破坏请求和保持条件</h5><p>可以采用<strong>静态分配方法</strong>，即进程在运行前一次申请完它所需要的全部资源，在它的资源未满足前，不让它投入运行。一旦投入运行后，这些资源就一直归它所有，该进程就不会再请求别的任何资源</p>
+<p><img src="http://images.changzer.cn/image-20221013165103039.png" srcset="/img/loading.gif" lazyload alt="image-20221013165103039"></p>
+<h5 id="24-5-1-4-破坏循环等待条件"><a href="#24-5-1-4-破坏循环等待条件" class="headerlink" title="24.5.1.4 破坏循环等待条件"></a>24.5.1.4 破坏循环等待条件</h5><p>可采用<strong>顺序资源分配法</strong>。首先给系统中的资源编号，规定每个进程<strong>必须按编号递增的顺序请求资源</strong>，同类资源（即编号相同的资源）一次申请完</p>
+<p>原理分析：一个进程只有已占有小编号的资源时，才有资格申请更大编号的资源。按此规则，已持有大编号的进程不可能逆向地回来申请小编号的资源，从而就不会产生循环等待的现象</p>
+<p><img src="http://images.changzer.cn/image-20221013165203336.png" srcset="/img/loading.gif" lazyload alt="image-20221013165203336"></p>
+<p><img src="http://images.changzer.cn/image-20221013165737136.png" srcset="/img/loading.gif" lazyload alt="image-20221013165737136"></p>
+<h4 id="24-5-2-避免死锁（银行家算法）"><a href="#24-5-2-避免死锁（银行家算法）" class="headerlink" title="24.5.2 避免死锁（银行家算法）"></a>24.5.2 避免死锁（银行家算法）</h4><h5 id="24-5-2-1-什么是安全序列"><a href="#24-5-2-1-什么是安全序列" class="headerlink" title="24.5.2.1 什么是安全序列"></a>24.5.2.1 什么是安全序列</h5><p>所谓<code>安全序列</code>，就是指如果系统按照这种序列分配资源，则<strong>每个进程都能顺利完成</strong>。只要能找出一个安全序列，系统就是安全状态。当然，安全序列可能有多个</p>
+<p>如果分配资源之后，系统中找不出任何一个安全序列，系统就进入了不安全状态。这就意味着之后可能所有进程都无法顺利的执行下去。当然，如果有进程提前归还了一些资源，那系统也有可能重新回到安全状态，不过我们在分配资源之前总是要考虑到最坏的情况</p>
+<p>如果系统处于安全状态，就一定不会发生死锁。如果系统进入不安全状态，就<strong>可能</strong>发生死锁（处于不安全状态未必就是发生了死锁，但发生死锁时一定是在不安全状态）</p>
+<p>因此可以<strong>在资源分配之前预先判断这次分配是否会导致系统进入不安全状态</strong>，以此决定是否答应资源分配请求，这也是“银行家算法”的核心思想</p>
+<h5 id="24-5-2-1-银行家算法"><a href="#24-5-2-1-银行家算法" class="headerlink" title="24.5.2.1 银行家算法"></a>24.5.2.1 银行家算法</h5><p>核心思想：在进程提出资源申请时，<strong>先预判此次分配是否会导致系统进入不安全状态</strong>。如果会进入<strong>不安全状态</strong>，就暂时不答应这次请求，让该进程<strong>先阻塞等待</strong></p>
+<p><img src="http://images.changzer.cn/image-20221013170221944.png" srcset="/img/loading.gif" lazyload alt="image-20221013170221944"></p>
+<p><img src="http://images.changzer.cn/image-20221013170234774.png" srcset="/img/loading.gif" lazyload alt="image-20221013170234774"></p>
+<p><img src="http://images.changzer.cn/image-20221013170240470.png" srcset="/img/loading.gif" lazyload alt="image-20221013170240470"></p>
+<p><img src="http://images.changzer.cn/image-20221013170245817.png" srcset="/img/loading.gif" lazyload alt="image-20221013170245817"></p>
+<p><img src="http://images.changzer.cn/image-20221013170252506.png" srcset="/img/loading.gif" lazyload alt="image-20221013170252506"></p>
+<p><img src="http://images.changzer.cn/image-20221013170257307.png" srcset="/img/loading.gif" lazyload alt="image-20221013170257307"></p>
+<p><img src="http://images.changzer.cn/image-20221013170301966.png" srcset="/img/loading.gif" lazyload alt="image-20221013170301966"></p>
+<p><img src="http://images.changzer.cn/image-20221013170340277.png" srcset="/img/loading.gif" lazyload alt="image-20221013170340277"></p>
+<p><strong>系统处于不安全状态未必死锁，但死锁时一定处于不安全状态。系统处于安全状态一定不会死锁</strong></p>
+<h4 id="24-5-3-死锁的检测和解除"><a href="#24-5-3-死锁的检测和解除" class="headerlink" title="24.5.3 死锁的检测和解除"></a>24.5.3 死锁的检测和解除</h4><p>如果系统中不采取预防死锁的措施，也不采取避免死锁的措施，系统就很可能发生死锁。在这种情况下，系统应当提供两个算法：</p>
+<p>1）<code>死锁检测算法</code>：用于检测系统状态，以确定系统中<strong>是否发生了死锁</strong></p>
+<p>2）<code>死锁解除算法</code>：当认定系统中已经发生了死锁，利用该算法可将系统<strong>从死锁状态中解脱出来</strong></p>
+<h5 id="24-5-3-1-死锁的检测"><a href="#24-5-3-1-死锁的检测" class="headerlink" title="24.5.3.1 死锁的检测"></a>24.5.3.1 死锁的检测</h5><p>为了能对系统是否已发生了死锁进行检测，必须：</p>
+<p>1）用<strong>某种数据结构</strong>来<strong>保存资源的请求和分配信息</strong></p>
+<p>2）提供一种<strong>算法</strong>，利用上述信息来<strong>检测</strong>系统<strong>是否已进入死锁状态</strong></p>
+<p><img src="http://images.changzer.cn/image-20221013170631375.png" srcset="/img/loading.gif" lazyload alt="image-20221013170631375"></p>
+<p><img src="http://images.changzer.cn/image-20221013170651253.png" srcset="/img/loading.gif" lazyload alt="image-20221013170651253"></p>
+<ol>
+<li><p>如果系统中剩余的<strong>可用资源数足够满足进程的需求</strong>，那么这个进程暂时是不会阻塞的，可以顺利地执行下去</p>
+</li>
+<li><p>如果这个进程执行结束了就把资源<strong>归还系统</strong>，就可能使某些正在等待资源的进程被激活，并顺利地执行下去</p>
+</li>
+<li><p>相应的，这些被激活的进程<strong>执行完</strong>了之后<strong>又会归还一些资源</strong>，这样可能又会激活另外一些阻塞的进程</p>
+</li>
+</ol>
+<p>如果按照上述过程，<strong>最终能消除所有边</strong>，就称这个图是可完全简化的。此时一定没有发生死锁（相当于一个安全序列）</p>
+<ol start="4">
+<li>如果最终不能消除所有边，那么此时就是发生了死锁。<strong>最终还连着边的那些进程就是处于死锁状态的进程</strong></li>
+</ol>
+<p><img src="http://images.changzer.cn/image-20221013171751748.png" srcset="/img/loading.gif" lazyload alt="image-20221013171751748"></p>
+<p><strong>死锁定理</strong>：如果某时刻系统的资源分配图是<strong>不可完全简化</strong>的，那么此时<strong>系统死锁</strong></p>
+<h5 id="24-5-3-1-死锁的解除"><a href="#24-5-3-1-死锁的解除" class="headerlink" title="24.5.3.1 死锁的解除"></a>24.5.3.1 死锁的解除</h5><p>一旦检测出死锁的发生就应该立即解除死锁</p>
+<p>补充：并不是系统中所有的进程都是死锁状态，用死锁检测算法化简资源分配图后，还连着边的那些进程就是死锁进程</p>
+<p>解除死锁的主要方法有：</p>
+<ol>
+<li><p><code>资源剥夺法</code>。<strong>挂起</strong>（暂时放在外存上）<strong>某些死锁进程</strong>，并抢占它的资源，将这些资源<strong>分配给其他的死锁进程</strong>。但是应该防止被挂起的进程长时间得不到资源而饥饿</p>
+</li>
+<li><p><code>撤销进程法</code>（或称终止进程法）。<strong>强制撤销部分、甚至全部死锁进程，并剥夺这些进程的资源。</strong>这种方式的优点是实现简单，但所付出的代价可能会很大。因为有些进程可能已经运行了很长时间，已经接近结束了，一旦被终止可谓功亏一篑，以后还得从头再来</p>
+</li>
+<li><p><code>进程回退法</code>。<strong>让一个或多个进程回退到足以避免死锁的地步。</strong>这就要求系统要记录进程的历史信息，设置还原点</p>
+</li>
+</ol>
+<blockquote>
+<p>如何决定“对谁动手”</p>
+<ol>
+<li><p>进程优先级</p>
+</li>
+<li><p>已执行多长时间</p>
+</li>
+<li><p>还要多久能完成</p>
+</li>
+<li><p>进程已经使用了多少资源</p>
+</li>
+<li><p>进程时交互式的还是批处理式的</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="http://images.changzer.cn/image-20221013172156837.png" srcset="/img/loading.gif" lazyload alt="image-20221013172156837"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="category-chain-item">操作系统</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>操作系统——（2）进程与线程</div>
+      <div>https://changzer.gitee.io/2022/10/09/操作系统——进程与线程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>长泽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月9日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="操作系统——（1）计算机系统概述">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">操作系统——（1）计算机系统概述</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/08/Java%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E8%8C%83%E5%9E%8B%E6%93%A6%E9%99%A4/" title="Java泛型的实现方法：类型擦除">
+                        <span class="hidden-mobile">Java泛型的实现方法：类型擦除</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.17/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"U4gVV6b2XIv8NKOLKX4LfT2V-gzGzoHsz","appKey":"ixQVAONuQX7vcLI79j9ru41V","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      蜀ICP备2022008417号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
