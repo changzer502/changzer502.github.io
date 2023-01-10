@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://images.changzer.cn/bug.jpg">
 <meta property="article:published_time" content="2023-01-10T07:20:00.000Z">
-<meta property="article:modified_time" content="2023-01-10T08:01:22.792Z">
+<meta property="article:modified_time" content="2023-01-10T08:04:21.441Z">
 <meta property="article:author" content="长泽">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="error">
@@ -340,11 +340,13 @@
 <p>在这里跨域问题本应该解决了，但是我这里出现了 403 (Forbidden)的报错</p>
 <p><img src="http://images.changzer.cn/image-20230110155248786.png" srcset="/img/loading.gif" lazyload alt="image-20230110155248786"></p>
 <p>在nginx配置中添加<code>proxy_set_header Host $http_host;</code>后解决了问题。</p>
+<blockquote>
 <p><strong>不设置 proxy_set_header Host 时，浏览器直接访问 nginx，获取到的 Host 是 proxy_pass 后面的值，即 $proxy_host 的值</strong></p>
 <p><strong>设置 proxy_set_header Host $host 时，浏览器直接访问 nginx，获取到的 Host 是 <code>$</code>host 的值，没有端口信息</strong></p>
 <p><strong>设置 proxy_set_header Host $host:$proxy_port 时，浏览器直接访问 nginx，获取到的 Host 是 $host:$proxy_port 的值</strong> </p>
 <p><strong>设置 proxy_set_header Host $http_host 时，浏览器直接访问 nginx，获取到的 Host 包含浏览器请求的 IP 和端口</strong></p>
 <p><strong>设置 proxy_set_header Host $host 时，浏览器直接访问 nginx，获取到的 Host 是 <code>$</code>host 的值，没有端口信息。此时代码中如果有重定向路由，那么重定向时就会丢失端口信息，导致 404</strong></p>
+</blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"># localhost/mc 的请求会被转发到localhost:<span class="hljs-number">8888</span><br>location /mc &#123;<br>    add_header <span class="hljs-string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="hljs-string">&#x27;*&#x27;</span>;<br>    add_header <span class="hljs-string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="hljs-string">&#x27;true&#x27;</span>;<br>    add_header <span class="hljs-string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="hljs-string">&#x27;GET, POST, OPTIONS&#x27;</span>;<br>    add_header <span class="hljs-string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="hljs-string">&#x27;DNT,web-token,app-token,Authorization,Accept,Origin,Keep-Alive,User-Agent,X-Mx-ReqToken,X-Data-Type,X-Auth-Token,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&#x27;</span>;<br>    add_header <span class="hljs-string">&#x27;Access-Control-Expose-Headers&#x27;</span> <span class="hljs-string">&#x27;Content-Length,Content-Range&#x27;</span>;<br><br>    proxy_pass http:<span class="hljs-comment">//localhost:8888; # 转发地址</span><br>    proxy_set_header Host $http_host;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>成功请求到数据。</p>
