@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img2.baidu.com/it/u=2421667029,1315887280&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=501">
 <meta property="article:published_time" content="2023-02-08T03:45:58.000Z">
-<meta property="article:modified_time" content="2023-03-15T13:56:07.664Z">
+<meta property="article:modified_time" content="2023-03-15T13:59:10.282Z">
 <meta property="article:author" content="长泽">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="笔记">
@@ -323,7 +323,7 @@
                 
                 <h2 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h2><p>一个Bean的生命周期分为四个阶段：实例化(Instantiation)、 属性设置(populate)、初始化(Initialization)、销毁(Destruction)</p>
 <p>实例化（反射），设置bean属性、检查awre接口，beanpostprocesser前置处理、初始化、后置处理、使用、销毁</p>
-<p><img src="https://img-blog.csdnimg.cn/4f805c4ded114b6d8179ba94962e7c9b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5LiA5Y-q5oeS5oOw55qE5bCP6Jmr5a2Q,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://images.changzer.cn/4f805c4ded114b6d8179ba94962e7c9b.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h2 id="Bean的六种作用域"><a href="#Bean的六种作用域" class="headerlink" title="Bean的六种作用域"></a>Bean的六种作用域</h2><ul>
 <li><p><strong>singleton:</strong> 在IoC容器中只有一份实例,获取Bean(指使用ApplicationContext.getBean()等方法获取)和装配Bean(即使用@Autowired注入),获取到的都是同一个对象.</p>
 </li>
@@ -387,7 +387,7 @@
 <p>​	对Redis的key设置过期时间。</p>
 <p>3、博客主页高频信息显示控制，博主的粉丝数、关注数、获得的赞等热点数据，存入Redis。</p>
 <h3 id="hash类型应用场景"><a href="#hash类型应用场景" class="headerlink" title="hash类型应用场景"></a>hash类型应用场景</h3><p>1、电商网站购物车的设计与实现。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020052516392076.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6dV9zZXU=,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="http://images.changzer.cn/2020052516392076.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
 <p>2、Hash实现抢购，限购发放优惠券，激活码等。</p>
 <ul>
 <li>以商家id作为key</li>
@@ -456,7 +456,7 @@
 </ol>
 <h3 id="3-删除缓存重试机制"><a href="#3-删除缓存重试机制" class="headerlink" title="3.删除缓存重试机制"></a>3.删除缓存重试机制</h3><p>若休眠后删除缓存失败了，则多删除几次,保证删除缓存成功，所以可以引入删除缓存重试机制。</p>
 <p>（1）更新数据库数据；<br>（2）缓存因为种种问题删除失败<br>（3）将需要删除的key发送至消息队列<br>（4）自己消费消息，获得需要删除的key<br>（5）继续重试删除操作，直到成功</p>
-<h3 id="4-读取biglog异步删除缓存"><a href="#4-读取biglog异步删除缓存" class="headerlink" title="4.读取biglog异步删除缓存"></a>4.读取biglog异步删除缓存</h3><p><img src="https://img-blog.csdnimg.cn/da175ae870374097a5b39e1a0e96b8f6.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="4-读取biglog异步删除缓存"><a href="#4-读取biglog异步删除缓存" class="headerlink" title="4.读取biglog异步删除缓存"></a>4.读取biglog异步删除缓存</h3><p><img src="http://images.changzer.cn/da175ae870374097a5b39e1a0e96b8f6.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>流程如下图所示：</p>
 <p>（1）更新数据库数据<br>（2）数据库会将操作信息写入binlog日志当中<br>（3）订阅程序提取出所需要的数据以及key<br>（4）另起一段非业务代码，获得该信息<br>（5）尝试删除缓存操作，发现删除失败<br>（6）将这些信息发送至消息队列<br>（7）重新从消息队列中获得该数据，重试操作。</p>
 
