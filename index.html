@@ -252,6 +252,77 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/03/30/%E5%85%AB%E8%82%A1%E6%96%87%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B02/" target="_self">
+          <img src="https://img2.baidu.com/it/u=2421667029,1315887280&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=501" srcset="/img/loading.gif" lazyload alt="笔记2">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/30/%E5%85%AB%E8%82%A1%E6%96%87%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B02/" target="_self">
+          笔记2
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2023/03/30/%E5%85%AB%E8%82%A1%E6%96%87%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B02/" target="_self">
+        <div>
+          SpringBoot自动配置  首先排除注解@ComponentScan。因为使用它很不方便，开发人员需要记住每个第三方Jar包中的package名称，然后把它们写到应用程序中。 @Import-导入普通类需要记住第三方Jar包中的具体类名！ @ImportBeanBeanDefinition，BeanDefinition注册器的设计目标是对@Bean方法的一个补充，它针对的是BeanDefini
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-30 18:45" pubdate>
+              2023-03-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+              <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
+            
+              <a href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/">#八股文</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2023/03/27/BUG%E4%BF%AE%E5%A4%8D%E2%80%94%E2%80%94Spring%E5%A4%9A%E6%AC%A1request.getReader()%E4%BB%A5%E5%8F%8A%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" target="_self">
           <img src="http://images.changzer.cn/bug.jpg" srcset="/img/loading.gif" lazyload alt="Spring多次request.getReader()以及乱码问题解决方法">
         </a>
@@ -874,82 +945,6 @@
               <a href="/tags/Java/">#Java</a>
             
               <a href="/tags/error/">#error</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/09/28/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/" target="_self">
-          <img src="http://images.changzer.cn/wallhaven-6oqzgq.jpg" srcset="/img/loading.gif" lazyload alt="学习写一个MYDB——（1）从TM开始">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/09/28/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/" target="_self">
-          学习写一个MYDB——（1）从TM开始
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt " href="/2022/09/28/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB%E2%80%94%E2%80%94%EF%BC%881%EF%BC%89%E4%BB%8ETM%E5%BC%80%E5%A7%8B/" target="_self">
-        <div>
-          1、从TM开始TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 XID文件  在MYDB中，每一个事务都有XID，XID唯一标识了这个事务。 事务的XID是从1开始标号，并自增，不可重复。特殊XID 0 为超级事务。当一些操作想在没申请事务的情况下进行，可以将操作的 XID 设置为 0。XID为 0 的事务的状态永远是 committed。 Transact
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-28 13:39" pubdate>
-              2022-09-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="category-chain-item">项目</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%A1%B9%E7%9B%AE/%E5%AD%A6%E4%B9%A0%E5%86%99%E4%B8%80%E4%B8%AAMYDB/" class="category-chain-item">学习写一个MYDB</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-              <a href="/tags/MYDB/">#MYDB</a>
             
           </div>
         

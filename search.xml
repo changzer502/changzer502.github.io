@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>笔记2</title>
+      <link href="/2023/03/30/%E5%85%AB%E8%82%A1%E6%96%87%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B02/"/>
+      <url>/2023/03/30/%E5%85%AB%E8%82%A1%E6%96%87%E2%80%94%E2%80%94%E7%AC%94%E8%AE%B02/</url>
+      
+        <content type="html"><![CDATA[<h1 id="SpringBoot自动配置"><a href="#SpringBoot自动配置" class="headerlink" title="SpringBoot自动配置"></a>SpringBoot自动配置</h1><p><img src="http://images.changzer.cn/image-20230316155114763.png" alt="image-20230316155114763"></p><p><img src="http://images.changzer.cn/image-20230316160246449.png" alt="image-20230316160246449"></p><p>首先排除注解<br>@ComponentScan。因为使用它很不方便，开发人员需要记住每个第三方Jar包中的package名称，然后把它们写<br>到应用程序中。</p><p>@Import-导入普通类需要记住第三方Jar包中的具体类名！</p><p>@ImportBeanBeanDefinition，BeanDefinition注册器的设计目标是对@Bean方法的一个补充，它针对的是BeanDefinition层面的</p><p>所以是用导入选择器来实现的自动配置。</p><p><img src="http://images.changzer.cn/image-20230316160444728.png" alt="image-20230316160444728"></p><p><img src="http://images.changzer.cn/image-20230316160737314.png" alt="image-20230316160737314"></p><p><img src="http://images.changzer.cn/image-20230316161003649.png" alt="image-20230316161003649"></p><p><img src="http://images.changzer.cn/image-20230316161130322.png" alt="image-20230316161130322"></p><p><img src="http://images.changzer.cn/image-20230316161204949.png" alt="image-20230316161204949"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> 笔记 </tag>
+            
+            <tag> 八股文 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spring多次request.getReader()以及乱码问题解决方法</title>
       <link href="/2023/03/27/BUG%E4%BF%AE%E5%A4%8D%E2%80%94%E2%80%94Spring%E5%A4%9A%E6%AC%A1request.getReader()%E4%BB%A5%E5%8F%8A%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
       <url>/2023/03/27/BUG%E4%BF%AE%E5%A4%8D%E2%80%94%E2%80%94Spring%E5%A4%9A%E6%AC%A1request.getReader()%E4%BB%A5%E5%8F%8A%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
